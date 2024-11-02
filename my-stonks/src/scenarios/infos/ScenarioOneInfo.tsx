@@ -1,37 +1,47 @@
 import 'nes.css/css/nes.min.css';
-import './ScenarioOne.css';
+import './Info.css';
 import Portfolio from '../../components/Portfolio';
 import BuyStock from '../../components/BuyStock';
 
 function ScenarioOneInfo() {
     return (
-        <div className="container">
-            {/* <header className="slogan nes-container is-dark">
-        <h1 className="slogan-text">goal??</h1>
-      </header> */}
-            <div className="nes-container with-title">
-                <p className='title'>2008 Stock Market Crash: A Quick Overview</p>
+        <div className="nes-container with-title">
+            <br></br>
+            <p className='title'>2008 Stock Market Crash: A Quick Overview</p>
 
-                In 2008, the stock market collapsed, sparking a global financial crisis. Here’s a breakdown of what happened, why it mattered, and what investors generally do in such situations.
+            <div className="grid-container">
+                <div className="nes-container is-rounded">
+                    What Caused the Crash?
+                    <ul className='nes-list is-circle'>
+                        <li>Housing prices soared as banks gave out risky loans.</li>
+                        <li>Subprime mortgages went to borrowers who couldn’t pay them back.</li>
+                        <li>Banks bundled these bad loans into investment products.</li>
+                        <li>When homeowners defaulted, investments lost value.</li>
+                        <li>The financial system toppled like a game of Jenga.</li>
+                    </ul>
 
-                #### What Caused the Crash?
-                1. **Housing Bubble**: U.S. banks gave out too many risky home loans, creating a “bubble” where house prices were unrealistically high.
-                2. **Subprime Mortgages**: Many of these loans went to people with low credit scores who couldn’t reliably repay them.
-                3. **Mortgage-Backed Securities**: Banks bundled these risky loans into investment products. When homeowners defaulted, these investments lost value rapidly, leading to huge losses for banks and investors.
+                </div>
 
-                #### The Effects
-                - **Stock Market Plunge**: U.S. stocks lost half of their value, affecting global markets.
-                - **High Unemployment**: Many companies failed, leading to massive job losses.
-                - **Housing Market Crash**: House prices dropped significantly, leaving many people with homes worth less than their mortgages.
-                - **Government Bailouts**: The U.S. government stepped in with financial aid to prevent a deeper collapse.
+                <div className="nes-container is-rounded">
+                    Then what happened?
+                    <ul className='nes-list is-circle'>
+                        <li>Stocks took a nosedive, losing a ton of value.</li>
+                        <li>Lots of companies went belly up, causing huge job losses.</li>
+                        <li>Home prices plummeted, leaving folks with houses worth less than what they owed.</li>
+                        <li>The government swooped in with cash to save the day.</li>
+                    </ul>
+                </div>
+            </div>
+            <br></br>
+            <div className="nes-container is-rounded is-dark is-centered">
+                Investor Tips:
+                <ul className='nes-list is-circle'>
+                    <li>Keep your cool; don’t panic sell your stocks!</li>
+                    <li>Spread out your investments to minimize risk.</li>
+                    <li>Stick to solid companies that are more reliable.</li>
+                    <li>Use dips in the market to snag great stocks at lower prices.</li>
+                </ul>
 
-                #### Investor Tips During a Market Crash
-                1. **Stay Calm**: Avoid panic selling. Many investors lose more by selling stocks at a low.
-                2. **Diversify**: Spread investments across sectors, so if one fails, others may hold up.
-                3. **Focus on Quality**: Stick to stable, reliable companies that are more likely to weather downturns.
-                4. **Look for Opportunities**: Market dips can be a chance to buy strong stocks at a lower price.
-
-                Understanding these basics can help investors respond thoughtfully in a crisis rather than react out of fear.
             </div>
         </div>
     );
