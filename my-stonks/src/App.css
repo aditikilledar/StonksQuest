@@ -1,38 +1,84 @@
-.App {
-  text-align: center;
-}
+/* src/App.css */
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
+  padding: 20px;
+  font-family: 'Press Start 2P', cursive;
+  /* NES-style font */
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* Two equal-width columns */
+  grid-template-rows: 1fr 1fr;
+  /* Two equal-height rows */
+  gap: 10px;
+  /* Spacing between the sections */
+  height: 100vh;
+  /* Full viewport height */
+  padding: 20px;
+  /* Optional padding around the container */
+}
+
+.section {
+  display: flex;
+  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: 1.5rem;
   color: white;
+  font-weight: bold;
+  border-radius: 8px;
 }
 
-.App-link {
-  color: #61dafb;
+
+.slogan {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.slogan-text {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* Two equal-width columns */
+  grid-template-rows: 1fr 1fr;
+  /* Two equal-height rows */
+  gap: 10px;
+  /* Spacing between sections */
+  width: 100%;
+  height: 100%;
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.section1 {
+  background-color: #4caf50;
+}
+
+.section2 {
+  background-color: #2196f3;
+}
+
+.section3 {
+  background-color: #ff9800;
+}
+
+.section4 {
+  background-color: #f44336;
 }
