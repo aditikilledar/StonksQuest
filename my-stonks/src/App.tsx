@@ -19,7 +19,7 @@ const App: React.FC = () => {
       <div>
         <Routes>
           {/* The Home component will be shown at the root path */}
-          <Route path="/" element={<Home onScenarioSelect={() => {}} onTest={() => {}} />} /> 
+          <Route path="/" element={<Home />} /> 
           {/* The ScenarioOne component will be shown when navigating to /scenario-one */}
           <Route path="/scenario-one" element={<ScenarioOne />} />
         </Routes>

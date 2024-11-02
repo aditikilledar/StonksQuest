@@ -2,16 +2,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-interface GameProps {
-  onScenarioSelect: (scenario: string) => void;
-  onTest: () => void;
-}
+// interface GameProps {
+//   onScenarioSelect: (scenario: string) => void;
+//   onTest: () => void;
+// }
 
-const Home: React.FC<GameProps> = ({ onScenarioSelect, onTest }) => {
+const Home: React.FC = () => {
   const navigate = useNavigate(); // Initialize the navigate function
 
   const handleScenarioClick = (scenario: string) => {
-    onScenarioSelect(scenario); // Call the scenario selection function
+    // onScenarioSelect(scenario); // Call the scenario selection function
     navigate('/scenario-one'); // Navigate to ScenarioOne
   };
 
@@ -23,7 +23,7 @@ const Home: React.FC<GameProps> = ({ onScenarioSelect, onTest }) => {
         <button className="game-button" onClick={() => handleScenarioClick('Scenario 2')}>Scenario 2</button>
         <button className="game-button" onClick={() => handleScenarioClick('Scenario 3')}>Scenario 3</button>
         <button className="game-button" onClick={() => handleScenarioClick('Scenario 4')}>Scenario 4</button>
-        <button className="game-button test-button" onClick={onTest}>Test</button>
+        <button className="game-button test-button" onClick={() => handleScenarioClick('Test')}>Test</button>
       </div>
     </div>
   );
