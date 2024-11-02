@@ -1,31 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
-import 'nes.css/css/nes.min.css';
 import './App.css';
-import Portfolio from './portfolio/Portfolio';
+import Home from './components/home';
 
-function App() {
+const App: React.FC = () => {
+  const handleScenarioSelect = (scenario: string) => {
+    console.log(`Selected ${scenario}`);
+    // Add logic for each scenario here
+  };
+
+  const handleTest = () => {
+    console.log('Running test scenario...');
+    // Add test scenario logic here
+  };
+
   return (
-    <div className="container">
-      <header className="slogan nes-container is-dark">
-        <h1 className="slogan-text">goal??</h1>
-      </header>
-      <div className="nes-container with-title">
-        <h3 className='title'>Stocks View</h3><p className='nes-text is-primary'>Section 1</p>
-      </div>
-      <div className="nes-container with-title">
-        <h3 className='title'>Bank</h3><p className='nes-text is-primary'>Section 1</p>
-      </div>
-      <div className="nes-container with-title">
-        <h3 className='title'>Buy Stocks</h3><p className='nes-text is-primary'>Section 1</p>
-      </div>
-      <div className="nes-container with-title">
-        <h3 className='title'>Portfolio</h3><p className='nes-text is-primary'>Section 1</p>
-        <Portfolio />
-      </div>
+    <div>
+      {/* <h1>Welcome to the Stock Market Simulator!</h1> */}
+      <Home onScenarioSelect={handleScenarioSelect} onTest={handleTest} />
     </div>
-
   );
-}
+};
 
 export default App;
