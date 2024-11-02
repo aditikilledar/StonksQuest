@@ -1,10 +1,4 @@
 /* src/App.css */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
-body {
-  font-family: 'Roboto', sans-serif;
-}
-
 
 .app-container {
   display: flex;
@@ -12,7 +6,7 @@ body {
   align-items: center;
   height: 100vh;
   padding: 20px;
-  font: 'Press Start 2P', cursive;
+  font-family: 'Press Start 2P', cursive;
   /* NES-style font */
 }
 
@@ -27,7 +21,6 @@ body {
   height: 100vh;
   /* Full viewport height */
   padding: 20px;
-  font-family: 'Press Start 2P', 'Courier New', Courier, monospace;
   /* Optional padding around the container */
 }
 
