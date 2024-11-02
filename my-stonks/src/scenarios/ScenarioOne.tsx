@@ -1,5 +1,5 @@
 import 'nes.css/css/nes.min.css';
-import 'ScenarioOne.css';
+import './ScenarioOne.css';
 import Portfolio from '../components/Portfolio';
 
 function ScenarioOne() {
