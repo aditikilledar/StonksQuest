@@ -18,7 +18,7 @@ function ScenarioOne() {
             <div className="nes-container with-title">
                 <h3 className='title'>Buy Stocks</h3>
                 <p className='nes-text is-primary'>
-                    <BuyStock />
+                    <BuyStock {stocksymbol, qty} />
                 </p>
             </div>
             <div className="nes-container with-title">
