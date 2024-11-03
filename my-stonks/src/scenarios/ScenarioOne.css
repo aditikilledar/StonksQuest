@@ -85,71 +85,113 @@
 
 /* CSS styles */
 .container-outer {
-  display: flex; /* Enable flexbox */
-  justify-content: space-between; /* Distribute space between items */
-  align-items: center; /* Center items vertically */
-  padding: 20px; /* Add some padding around the container */
+  display: flex;
+  /* Enable flexbox */
+  justify-content: space-between;
+  /* Distribute space between items */
+  align-items: center;
+  /* Center items vertically */
+  padding: 20px;
+  /* Add some padding around the container */
 }
 
 .box {
-  flex: 1; /* Allow boxes to grow equally */
+  flex: 1;
+  /* Allow boxes to grow equally */
   /* margin: 10px; Add margin around each box */
   /* padding: 20px; Add padding inside the boxes */
   /* border: 1px solid #ccc; Border */
-  text-align: center; /* Center text */
+  text-align: center;
+  /* Center text */
 }
 
 .box1 {
-  background-color: #4CAF50; /* Different background color for Box 1 */
+  background-color: #4CAF50;
+  /* Different background color for Box 1 */
 }
 
 .box2 {
-  background-color: #2196F3; /* Different background color for Box 2 */
+  background-color: #2196F3;
+  /* Different background color for Box 2 */
 }
 
 .grid-container-outer {
-  display: grid; /* Enable grid layout */
-  grid-template-columns: 1fr 1fr; /* Set left column width and right column to fill the remaining space */
-  height: 100vh; /* Full height of the viewport */
+  display: grid;
+  /* Enable grid layout */
+  grid-template-columns: 1fr 1fr;
+  /* Set left column width and right column to fill the remaining space */
+  height: 100vh;
+  /* Full height of the viewport */
   overflow: hidden;
 }
 
 .left-column {
-  display: flex; /* Enable flexbox for vertical stacking */
-  flex-direction: column; /* Stack boxes vertically */
-  justify-content: flex-start; /* Align boxes to the top */
-  padding: 20px; /* Padding inside the left column */
+  display: flex;
+  /* Enable flexbox for vertical stacking */
+  flex-direction: column;
+  /* Stack boxes vertically */
+  justify-content: flex-start;
+  /* Align boxes to the top */
+  padding: 20px;
+  /* Padding inside the left column */
   height: 100%;
   overflow-y: auto;
 }
 
 .right-column {
-  background-color: #ffffff; /* Background color for the right column */
-  padding: 20px; /* Padding inside the right column */
+  background-color: #ffffff;
+  /* Background color for the right column */
+  padding: 20px;
+  /* Padding inside the right column */
   height: 100%;
 }
 
 .box-inner {
-  text-align: center; /* Center text */
+  text-align: center;
+  /* Center text */
   height: 50%;
 }
 
 .opaque-alert {
-  background-color: rgb(235, 235, 198); /* Solid background color */
-  opacity: 1; /* Full opacity */
+  background-color: rgb(235, 235, 198);
+  /* Solid background color */
+  opacity: 1;
+  /* Full opacity */
   padding: 20px;
   position: fixed;
   top: 20%;
   left: 30%;
   width: 40%;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Optional shadow for better visibility */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  /* Optional shadow for better visibility */
   border-radius: 8px;
-  z-index: 1000; /* Ensure it appears above other elements */
+  z-index: 1000;
+  /* Ensure it appears above other elements */
 }
 
 .stock-control {
   display: flex;
-  align-items: center;  /* Centers items vertically */
-  gap: 10px;            /* Adds space between elements */
-  margin-bottom: 5px;   /* Optional: spacing between rows */
+  align-items: center;
+  /* Centers items vertically */
+  gap: 10px;
+  /* Adds space between elements */
+  margin-bottom: 5px;
+  /* Optional: spacing between rows */
+}
+
+.game-over-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  z-index: 9999;
+  text-align: center;
 }

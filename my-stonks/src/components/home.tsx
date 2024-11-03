@@ -12,7 +12,8 @@ const Home: React.FC = () => {
 
   return (
     <div className="game-container">
-      <h2 className="game-title">StonkQuest</h2>
+      <h1 style={{ color: 'yellow', fontSize: 72 }}>StonkQuest</h1>
+      <h3 className="game-title">Practice Stock Market Scenarios</h3>
       <div className="button-container">
         <button className="game-button" onClick={() => navigate('/scenario-one')}>Scenario 1</button>
         <button className="game-button" onClick={() => navigate('/scenario-two')}>Scenario 2</button>

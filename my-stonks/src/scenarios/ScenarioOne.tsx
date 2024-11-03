@@ -167,9 +167,20 @@ const ScenarioOne: React.FC = () => {
         setPaused(false); // Resume the day counter
     };
 
+    const isGameOver = day >= 300;
+    const isProfitMade = Number(totalPortfolioValue) > 1000;
+
 
     return (
         <div className="grid-container-outer">
+
+            {!isGameOver && (
+                <div className="game-over-overlay">
+                    <h1>GAME OVER</h1>
+                    <h2>{isProfitMade ? 'YOU WIN' : 'YOU LOSE'}</h2>
+                </div>
+            )}
+
             <div className="left-column">
                 <h1 className='title'>MiniGame: Market Crash Simulation</h1>
                 <div className="nes-container">
@@ -227,41 +238,11 @@ const ScenarioOne: React.FC = () => {
                 </div>
 
             </div>
-            {/* <div className="right-column">
-                <h3 className='title'>Goal: Try to make a profit.</h3>
-                <h3 className='title'>Decide whether to buy, hold, or sell based on the market conditions.</h3>
-                <div className="nes-container" style={{ height: '100%' }}>
-                    <center><h3 className='title'>Portfolio</h3></center>
-                </div>
-                <div className="nes-container with-title" style={{ height: '100%' }}>
-                    <p><strong>Cash:</strong> ${portfolio.cash.toFixed(2)}</p>
-                    <p><strong>Total Portfolio Value:</strong> ${totalPortfolioValue}</p>
-                </div>
-                <div className="nes-container with-title" style={{ height: '50%' }}>
-                    <h3 className='title'>Buy/Sell</h3>
-                    {
-                        stockSymbols.map((item, index) => (
-                            <div key={index} className="stock-control">
-                                <p>{item} - Shares: {portfolio.stocks[index].shares}</p>
-                                <button onClick={() => handleBuy(index)} className="nes-btn is-primary">
-                                    Buy
-                                </button>
-                                <button onClick={() => handleSell(index)} className="nes-btn is-error" disabled={portfolio.stocks[index].shares === 0}>
-                                    Sell
-                                </button>
-                            </div>
-                        ))
-                        // stockSymbols.map((item, index) => (
-                        //     <p key={index}>{item} </p>
-                        // ))
-                    }
-                </div>
 
-            {/* Alert Popup */}
             {alertMessage && (
                 <div className="nes-container is-rounded is-warning opaque-alert">
-                    <p><strong>Alert:</strong> {alertMessage}</p>
-                    <button className="nes-btn is-primary" onClick={handleCloseAlert}>Close Alert and Resume</button>
+                    <p><strong>Alert:</strong> {alertMessage}<br></br><br></br> Tip: Use this paused time to buy, sell, or hold onto stocks.</p>
+                    <button className="nes-btn is-primary" onClick={handleCloseAlert}>I'm done. Resume! </button>
                 </div>
             )}
         </div>
