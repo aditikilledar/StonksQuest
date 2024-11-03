@@ -13,7 +13,7 @@ const App: React.FC = () => {
       <div>
         <Routes>
           {/* Home component at the root path */}
-          <Route path="/" element={<Home />} />
+          <Route path="/StonkQuest" element={<Home />} />
           
           {/* Scenario-specific routes */}
           <Route path="/scenario-one" element={<ScenarioOneInfo />} />
