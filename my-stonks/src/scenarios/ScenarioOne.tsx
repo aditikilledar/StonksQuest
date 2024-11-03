@@ -319,7 +319,7 @@ const ScenarioOne: React.FC = () => {
                         <h2>{isProfitMade ? 'YOU WIN' : 'YOU LOSE'}</h2>
                         <button className='nes-btn is-success' onClick={() => window.location.reload()}>Play Again</button>
                         <button className='nes-btn is-normal' onClick={() => navigate('/scenario-one')}>Rules</button>
-                        <button className='nes-btn is-warning' onClick={() => navigate('/')}> Back to Scenarios</button>
+                        <button className='nes-btn is-warning' onClick={() => navigate('/Stonkquest')}> Back to Scenarios</button>
 
                     </div>
                 )}
