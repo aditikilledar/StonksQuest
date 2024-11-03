@@ -1,6 +1,6 @@
 # StonkQuest
 
-A dynamic stock market simulator for learning investment strategies through interactive gameplay.
+Learn to trade by adapting to real-life scenarios without losing your life savings.
 
 ## 🎯 Overview
 
@@ -16,6 +16,7 @@ StonkQuest simulates tech stock trading in a risk-free environment. Build your p
 ```bash
 git clone [repository-url]
 cd my-stonks
+npm install nes.css
 npm install
 npm start
 ```
@@ -52,5 +53,11 @@ Maximize portfolio value through strategic trading based on market signals and t
 
 - **React**: For building a responsive, interactive frontend.
 - **TypeScript**: Ensures robust, type-safe code for reliability and maintainability.
+- **NES.css**: NES-style (8bit-like) CSS Framework.
+
+## 🙏 Credits
+
+- NES.css: This project's delightful retro aesthetics are powered by the fantastic NES.css framework. Big thanks to B.C.Rikko and all contributors for this awesome tool!
+- ChatGPT: Special thanks to OpenAI's ChatGPT for helping craft effective documentation and providing development insights.
 
 Happy trading, and enjoy learning about the stock market with StonkQuest! 📈

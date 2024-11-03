@@ -39,9 +39,9 @@ const ScenarioFour: React.FC = () => {
     const navigate = useNavigate();
     const [day, setDay] = useState<number>(0);
     const [prices, setPrices] = useState<number[][]>([
-        [100], // Global BankCorp
-        [120], // SafeHold Realty Trust
-        [80]   // GreenEnergy Innovations Inc.
+        [100], // TechWave Solutions
+        [120], // Urban AgroGrowth
+        [80]   // AeroNex Industries Inc.
     ]);
 
     const [portfolio, setPortfolio] = useState<PortfolioI>({
@@ -59,17 +59,17 @@ const ScenarioFour: React.FC = () => {
 
     // Earnings report phases and messages
     const timelineMessages = [
-        { day: 10, message: "Anticipation builds ahead of Global BankCorp's quarterly earnings report." },
-        { day: 20, message: "Global BankCorp's earnings beat expectations, driving stock prices higher." },
-        { day: 30, message: "SafeHold Realty Trust's earnings report reveals a surprising revenue drop." },
-        { day: 40, message: "GreenEnergy Innovations reports mixed earnings, causing volatility." }
+        { day: 10, message: "Anticipation builds ahead of TechWave Solutions's quarterly earnings report." },
+        { day: 20, message: "TechWave Solutions's earnings beat expectations, driving stock prices higher." },
+        { day: 30, message: "Urban AgroGrowth's earnings report reveals a surprising revenue drop." },
+        { day: 40, message: "AeroNex Industries reports mixed earnings, causing volatility." }
     ];
 
     const hints = [
         { dayStart: 0, dayEnd: 10, hint: "Market is stable; monitor upcoming earnings reports for potential movements." },
-        { dayStart: 11, dayEnd: 20, hint: "Consider buying Global BankCorp shares as earnings beat expectations." },
-        { dayStart: 21, dayEnd: 30, hint: "SafeHold Realty Trust might face declines due to unexpected revenue drop." },
-        { dayStart: 31, dayEnd: 40, hint: "GreenEnergy Innovations is volatile; buying or selling depends on your risk tolerance." }
+        { dayStart: 11, dayEnd: 20, hint: "Consider buying TechWave Solutions shares as earnings beat expectations." },
+        { dayStart: 21, dayEnd: 30, hint: "Urban AgroGrowth might face declines due to unexpected revenue drop." },
+        { dayStart: 31, dayEnd: 40, hint: "AeroNex Industries is volatile; buying or selling depends on your risk tolerance." }
     ];
 
     const stockSymbols = ["TechWave Solutions", "Urban AgroGrowth", "AeroNex Industries"];
@@ -145,11 +145,11 @@ const ScenarioFour: React.FC = () => {
 
                 if (day < 10) { // Phase 1: Anticipation, slight stability
                     newPrice = previousPrice * (1 + Math.random() * 0.01);
-                } else if (day < 20) { // Phase 2: Global BankCorp beats expectations
+                } else if (day < 20) { // Phase 2: TechWave Solutions beats expectations
                     newPrice = index === 0 ? previousPrice * (1 + Math.random() * 0.05) : previousPrice * (1 - Math.random() * 0.01);
                 } else if (day < 30) { // Phase 3: SafeHold Realty reports revenue drop
                     newPrice = index === 1 ? previousPrice * (1 - Math.random() * 0.03) : previousPrice * (1 + Math.random() * 0.01);
-                } else if (day < 40) { // Phase 4: GreenEnergy Innovations volatility
+                } else if (day < 40) { // Phase 4: AeroNex Industries volatility
                     newPrice = index === 2 ? previousPrice * (1 + Math.random() * 0.05 - 0.025) : previousPrice * (1 + Math.random() * 0.01);
                 } else { // Post-report stability
                     newPrice = previousPrice * (1 + Math.random() * 0.01 - 0.005);
