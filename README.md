@@ -53,4 +53,4 @@ Maximize portfolio value through strategic trading based on market signals and t
 - **React**: For building a responsive, interactive frontend.
 - **TypeScript**: Ensures robust, type-safe code for reliability and maintainability.
 
-Start trading now and see if you can master the market! 📊
+Happy trading, and enjoy learning about the stock market with StonkQuest! 📈
