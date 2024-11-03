@@ -19,7 +19,10 @@ const Home: React.FC = () => {
         <button className="game-button" onClick={() => navigate('/scenario-two')}>Scenario 2</button>
         <button className="game-button" onClick={() => navigate('/scenario-three')}>Scenario 3</button>
         <button className="game-button" onClick={() => navigate('/scenario-four')}>Scenario 4</button>
+
         {/* <button className="game-button test-button" onClick={onTest}>Test</button> */}
+        <button className="game-button test-button" onClick={() => navigate('/test')}>Test</button>
+
       </div>
     </div>
   );
