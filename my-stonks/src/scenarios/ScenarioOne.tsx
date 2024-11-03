@@ -44,7 +44,7 @@ const ScenarioOne: React.FC = () => {
         cash: 1000,
         stocks: [{ shares: 0 }, { shares: 0 }, { shares: 0 }]
     });
-
+    
     const timelineMessages = [
         "Housing market weakens as home prices start to fall.",
         "Mortgage defaults rise, hitting banks with losses.",
@@ -55,6 +55,9 @@ const ScenarioOne: React.FC = () => {
     ];
 
     const stockSymbols = ["Stock A", "Stock B", "Stock C"];
+
+    const [buyCounts, setBuyCounts] = useState<number[]>(stockSymbols.map(() => 0));
+    const [sellCounts, setSellCounts] = useState<number[]>(stockSymbols.map(() => 0));
 
     const getCurrentMessage = () => {
         if (day < 50) return timelineMessages[0];
@@ -102,6 +105,9 @@ const ScenarioOne: React.FC = () => {
                     : stock
                 )
             }));
+            setBuyCounts((prevCounts) => 
+                prevCounts.map((count, i) => i === index ? count + 1 : count)
+            );
         }
     };
 
@@ -116,6 +122,9 @@ const ScenarioOne: React.FC = () => {
                     : stock
                 )
             }));
+            setSellCounts((prevCounts) => 
+                prevCounts.map((count, i) => i === index ? count + 1 : count)
+            );
         }
     };
 
@@ -178,6 +187,22 @@ const ScenarioOne: React.FC = () => {
                 </div>
                 <div className="nes-container with-title" style={{ height: '50%' }}>
                     <h3 className='title'>Buy/Sell</h3>
+                    {
+                        stockSymbols.map((item, index) => (
+                            <div key={index} className="stock-control">
+                                <p>{item} - Shares: {portfolio.stocks[index].shares}</p>
+                                <button onClick={() => handleBuy(index)} className="nes-btn is-primary">
+                                    Buy
+                                </button>
+                                <button onClick={() => handleSell(index)} className="nes-btn is-error" disabled={portfolio.stocks[index].shares === 0}>
+                                    Sell
+                                </button>
+                            </div>
+                        ))
+                        // stockSymbols.map((item, index) => (
+                        //     <p key={index}>{item} </p>
+                        // ))
+                    }
                 </div>
                
             </div>
