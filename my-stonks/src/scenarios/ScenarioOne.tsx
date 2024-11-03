@@ -14,6 +14,7 @@ import {
     Tooltip,
     Legend
 } from 'chart.js';
+import { useNavigate } from 'react-router-dom';
 
 ChartJS.register(
     CategoryScale,
@@ -35,6 +36,7 @@ interface PortfolioI {
 }
 
 const ScenarioOne: React.FC = () => {
+    const navigate = useNavigate();
     const [day, setDay] = useState<number>(0);
     const [prices, setPrices] = useState<number[][]>([
         [100],
@@ -46,17 +48,19 @@ const ScenarioOne: React.FC = () => {
         cash: 1000,
         stocks: [{ shares: 0 }, { shares: 0 }, { shares: 0 }]
     });
+
     const [paused, setPaused] = useState<boolean>(false);
     const [alertMessage, setAlertMessage] = useState<string | null>(null);
     const [shownAlerts, setShownAlerts] = useState<Set<number>>(new Set());
+    const [activeDialog, setActiveDialog] = useState<number | null>(null);
 
     const timelineMessages = [
-        { day: 20, message: "Housing market weakens as home prices start to fall." },
-        { day: 40, message: "Mortgage defaults rise, hitting banks with losses." },
-        { day: 60, message: "Lehman Brothers collapses, triggering panic." },
-        { day: 80, message: "Global markets plunge as fears of recession grow." },
-        { day: 100, message: "Government bailouts aim to stabilize the market." },
-        { day: 120, message: "Early signs of recovery as market stabilizes." }
+        { day: 10, message: "Housing market weakens as home prices start to fall." },
+        { day: 27, message: "Mortgage defaults rise, hitting banks with losses." },
+        { day: 35, message: "Lehman Brothers collapses, triggering panic." },
+        { day: 42, message: "Global markets plunge as fears of recession grow." },
+        { day: 50, message: "Government bailouts aim to stabilize the market." },
+        { day: 60, message: "Early signs of recovery as market stabilizes." }
     ];
 
     const stockSymbols = ["Stock A", "Stock B", "Stock C"];
@@ -95,39 +99,45 @@ const ScenarioOne: React.FC = () => {
     const stockInfo = [
         {
             title: "Global BankCorp",
-            description: "Global BankCorp is a prominent international banking institution that stands out for its commitment to innovation in financial services and extensive reach across investment banking, wealth management, and commercial lending. With a strong global presence, BankCorp continually expands into emerging markets and prioritizes digital transformation, adapting to the needs of modern customers. BankCorp values financial inclusivity and provides a broad range of services aimed at supporting both individual and corporate clients worldwide, reflecting its mission to fuel economic growth and connect communities through financial empowerment."
+            description: "Global BankCorp is a prominent international banking institution that stands out for its commitment to innovation..."
         },
         {
             title: "SafeHold Realty Trust",
-            description: "SafeHold Realty Trust is a premier real estate investment trust (REIT) specializing in top-tier commercial properties in major metropolitan areas. Known for its diverse portfolio of office spaces, shopping centers, and logistics facilities, SafeHold upholds a commitment to stability and reliability in property management. The company’s strategic focus on long-term leases with reputable tenants in high-demand urban locations underscores its dedication to maintaining secure, long-lasting assets."
+            description: "SafeHold Realty Trust is a premier real estate investment trust (REIT) specializing in top-tier commercial properties..."
         },
         {
             title: "GreenEnergy Innovations Inc.",
-            description: "GreenEnergy Innovations is a pioneering renewable energy company focused on advancing clean power solutions, including solar, wind, and hydroelectric energy. Driven by a mission to combat climate change, GreenEnergy emphasizes sustainability and invests heavily in R&D to continuously improve energy efficiency and reduce costs. The company’s innovative projects and dedication to clean energy are helping pave the way for a more sustainable future, as it partners with global stakeholders to expand the accessibility of green power."
+            description: "GreenEnergy Innovations is a pioneering renewable energy company focused on advancing clean power solutions..."
         }
     ];
-    const [activeDialog, setActiveDialog] = useState<number | null>(null);
-    const [currentHint, setCurrentHint] = useState<string | null>(null);
-
-    const checkForAlert = () => {
-        const alert = timelineMessages.find(event => event.day === day);
-
-        if (alert && !shownAlerts.has(alert.day)) {
-            setAlertMessage(alert.message);
-            setPaused(true);
-            setShownAlerts(new Set(shownAlerts).add(alert.day));
-    }
-};
 
 
-    // Handle opening and closing dialogs
-    const openDialog = (index: number) => {
-        setActiveDialog(index);
+
+    const resetGame = () => {
+        console.log("HIIII")
+        // Reset state when the component mounts
+        setDay(0);
+        setPortfolio({
+            cash: 1000,
+            stocks: [{ shares: 0 }, { shares: 0 }, { shares: 0 }] // reset stocks as needed
+        });
+        isGameOver = false;
+        isProfitMade = false;
     };
 
-    const closeDialog = () => {
-        setActiveDialog(null);
-    };
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === 'hidden') {
+                resetGame();
+            }
+        };
+
+        window.addEventListener('visibilitychange', handleVisibilityChange);
+
+        return () => {
+            window.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
+    }, []);
 
 
     const getCurrentMessage = () => {
@@ -136,15 +146,14 @@ const ScenarioOne: React.FC = () => {
     };
 
 
-    // Check for alert based on the current day
-    // const checkForAlert = () => {
-    //     const alert = timelineMessages.find(event => event.day === day);
-    //     if (alert && !shownAlerts.has(alert.day)) {
-    //         setAlertMessage(alert.message);
-    //         setPaused(true); // Pause the day counter only
-    //         setShownAlerts(new Set(shownAlerts).add(alert.day)); // Track this alert as shown
-    //     }
-    // };
+    const checkForAlert = () => {
+        const alert = timelineMessages.find(event => day < event.day);
+        if (alert && !shownAlerts.has(alert.day)) {
+            setAlertMessage(alert.message);
+            setPaused(true);
+            setShownAlerts(new Set(shownAlerts).add(alert.day));
+        }
+    };
 
     // Increment day if simulation is not paused
     useEffect(() => {
@@ -160,22 +169,37 @@ const ScenarioOne: React.FC = () => {
             setPrices((prevPrices) => prevPrices.map((priceSeries) => {
                 const previousPrice = priceSeries[day - 1];
                 let newPrice;
-
-                if (day < 50) {
+                if (day < 10) {
                     newPrice = previousPrice * (1 - Math.random() * 0.02);
-                } else if (day < 150) {
+                } else if (day < 27) {
                     newPrice = previousPrice * (1 - Math.random() * 0.01);
-                } else if (day < 200) {
+                } else if (day < 35) {
                     newPrice = previousPrice * (1 + Math.random() * 0.005);
-                } else {
+                } else if (day < 42) {
+                    newPrice = previousPrice * (1 - Math.random() * 0.01);
+                } else if (day < 50) {
+                        newPrice = previousPrice * (1 + Math.random() * 0.01);
                     newPrice = previousPrice * (1 + Math.random() * 0.01);
+                } else {
+                    newPrice = previousPrice * (1 + Math.random() * 0.04);
                 }
-
                 return [...priceSeries, newPrice];
             }));
-            checkForAlert(); // Check for alerts every time the day updates
+            checkForAlert();
         }
-    }, [day]); // No dependency on paused state for price updates
+    }, [day]);
+    const handleCloseAlert = () => {
+        setAlertMessage(null);
+        setPaused(false);
+    };
+
+    const openDialog = (index: number) => {
+        setActiveDialog(index);
+    };
+
+    const closeDialog = () => {
+        setActiveDialog(null);
+    };
 
     const handleBuy = (index: number) => {
         const price = prices[index][day];
@@ -230,25 +254,14 @@ const ScenarioOne: React.FC = () => {
         }, 0)
     ).toFixed(2);
 
-    const handleCloseAlert = () => {
-        setAlertMessage(null); // Clear the alert message
-        setPaused(false); // Resume the day counter
-    };
+        const currentPrice = prices[index][day]; // Get current price based on your logic
+        return total + (stock.shares * (currentPrice || 0));
+    }, 0);
 
-    const requestHint = () => {
-        const dayHint = hints.find(hint => hint.dayStart <= day && day <= hint.dayEnd);
-    
-        setCurrentHint(dayHint ? dayHint.hint : "Consider watching for opportunities.");
-    };
-    
-    const closeHint = () => {
-        setCurrentHint(null);
-    };
-    
-
-    const isGameOver = day >= 300;
-    const isProfitMade = Number(totalPortfolioValue) > 1000;
-
+    var isGameOver: Boolean = day >= 300;
+    const totalWalletValue = portfolio.cash + totalStockValue; // Total value of portfolio
+    const valueInvested = (initialInvestment - portfolio.cash).toFixed(2); // Calculate value invested
+    var isProfitMade: Boolean = Number(totalPortfolioValue) > 1000;
 
     return (
         <div>
@@ -257,10 +270,11 @@ const ScenarioOne: React.FC = () => {
 
             {isGameOver && (
                 <div className="game-over-overlay">
-                    <h1>GAME OVER</h1>
                     <h2>{isProfitMade ? 'YOU WIN' : 'YOU LOSE'}</h2>
+                    <button className='nes-btn is-success' onClick={() => navigate('/scenario-one')}>Start Over</button>
                 </div>
             )}
+                        <button className='nes-btn is-success' onClick={() => navigate('/scenario-one')}>Start Over</button>
 
             <div className="left-column">
                 <h1 className='title'>MiniGame: Market Crash Simulation</h1>
@@ -277,89 +291,90 @@ const ScenarioOne: React.FC = () => {
 
                         return (
                             <div key={index} className="chart-container">
-                                <h3>{stockSymbols[index]} ${currentPrice}</h3>
+                        <center><h2>Day: {day + 1}</h2></center>
+                        <div className="nes-container is-rounded is-dark">
+                            {getCurrentMessage()}
+                        </div>
+                        <br></br>
+                        {prices.map((priceSeries, index) => {
+                            const currentPrice = priceSeries[day]?.toFixed(2) || "0.00";
+                            const stockValue = (portfolio.stocks[index].shares * (priceSeries[day] || 0)).toFixed(2);
 
-                                <Line data={createChartData(priceSeries)} />
-                                <button className="nes-btn is-primary" onClick={() => openDialog(index)}>
-                                View Info
-                                </button>
+                            return (
+                                <div key={index} className="chart-container">
+                                    <h3>{stockSymbols[index]} ${currentPrice}</h3>
 
-                                {activeDialog === index && (
-                                    <dialog className="nes-dialog is-rounded dialog-container" open>
-                                        <form method="dialog">
-                                            <p className="title">{stockInfo[index].title}</p>
-                                            <p>{stockInfo[index].description}</p>
-                                            <menu className="dialog-menu">
-                                                <button className="nes-btn" onClick={closeDialog}>Close</button>
-                                            </menu>
-                                        </form>
-                                    </dialog>
-                                )}
+                                    <Line data={createChartData(priceSeries)} />
+                                    <button className="nes-btn is-primary" onClick={() => openDialog(index)}>
+                                        View Info
+                                    </button>
 
-                            </div>
-                            
-                        );
-                    })}
+                                    {activeDialog === index && (
+                                        <dialog className="nes-dialog is-rounded opaque-dialog-info" open>
+                                            <form method="dialog">
+                                                <p className="title">{stockInfo[index].title}</p>
+                                                <p>{stockInfo[index].description}</p>
+                                                <menu className="dialog-menu">
+                                                    <button className="nes-btn" onClick={closeDialog}>Close</button>
+                                                </menu>
+                                            </form>
+                                        </dialog>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
+
+                <div className="right-column">
+                    <h4 className='title'>Goal: Try to make a profit.</h4>
+                    <h4 className='title'>Decide whether to buy, hold, or sell based on the market conditions.</h4>
+                    <br></br>
+                    <div className="nes-container" style={{ height: '40%' }}>
+                        <center><h3 className='title'>Portfolio</h3></center>
+                        <p><strong>Money Remaining:</strong> ${portfolio.cash.toFixed(2)}</p>
+                        <p><strong>Wallet:</strong> ${(1000 - portfolio.cash).toFixed(2)}</p>
+                        <p><strong>Total Value Worth:</strong> ${totalPortfolioValue}</p>
+                        <p><strong>Gains (Profit):</strong> ${totalPortfolioValue}</p>
+                        <p><strong>Profit Status:</strong> {isProfitMade ? 'Profit Made' : 'No Profit'}</p>
+                    </div>
+                    <br></br>
+                    <div className="nes-container" style={{ height: '40%' }}>
+                        <center><h3>Buy/Sell</h3></center>
+                        {
+                            stockSymbols.map((item, index) => (
+                                <div key={index} className="stock-control">
+                                    <p>{item} - Shares: {portfolio.stocks[index].shares}</p>
+                                    <button onClick={() => handleBuy(index)} className="nes-btn is-success">
+                                        Buy
+                                    </button>
+                                    <button onClick={() => handleSell(index)} className={`nes-btn ${portfolio.stocks[index].shares === 0 ? 'is-disabled' : 'is-error'}`} disabled={portfolio.stocks[index].shares === 0}>
+                                        Sell
+                                    </button>
+                                </div>
+                            ))
+                            // stockSymbols.map((item, index) => (
+                            //     <p key={index}>{item} </p>
+                            // ))
+                        }
+                    </div>
+
+                </div>
+
+                {alertMessage && (
+                    <div className="nes-container is-rounded is-warning opaque-alert">
+                        <p><strong>Alert:</strong> {alertMessage}<br></br><br></br> Tip: Use this paused time to buy, sell, or hold onto stocks.</p>
+                        <button className="nes-btn is-primary" onClick={handleCloseAlert}>I'm done. Resume! </button>
+                    </div>
+                )}
             </div>
-            <div className="right-column">
-                <h4 className='title'>Goal: Try to make a profit.</h4>
-                <h4 className='title'>Decide whether to buy, hold, or sell based on the market conditions.</h4>
-                <br></br>
-                <div className="nes-container" style={{ height: '40%' }}>
-                    <center><h3 className='title'>Portfolio</h3></center>
-                    <p><strong>Money Remaining:</strong> ${portfolio.cash.toFixed(2)}</p>
-                    <p><strong>Value Invested:</strong> ${(1000 - portfolio.cash).toFixed(2)}</p>
-                    <p><strong>Total Value Worth:</strong> ${totalPortfolioValue}</p>
+        </div >
 
-
-                </div>
-                <br></br>
-                <div className="nes-container" style={{ height: '40%' }}>
-                    <center><h3>Buy/Sell</h3></center>
-                    {
-                        stockSymbols.map((item, index) => (
-                            <div key={index} className="stock-control">
-                                <p>{item} - Shares: {portfolio.stocks[index].shares}</p>
-                                <button onClick={() => handleBuy(index)} className="nes-btn is-success">
-                                    Buy
-                                </button>
-                                <button onClick={() => handleSell(index)} className={`nes-btn ${portfolio.stocks[index].shares === 0 ? 'is-disabled' : 'is-error'}`} disabled={portfolio.stocks[index].shares === 0}>
-                                    Sell
-                                </button>
-                            </div>
-                        ))
-
-                        
-
-                    }
-                    <button className="nes-btn is-primary" onClick={requestHint}>Request Hint</button>
-                </div>
-
-            </div>
-
-            {alertMessage && (
-                <div className="nes-container is-rounded is-warning opaque-alert">
-                    <p><strong>Alert:</strong> {alertMessage}<br></br><br></br> Tip: Use this paused time to buy, sell, or hold onto stocks.</p>
-                    <button className="nes-btn is-primary" onClick={handleCloseAlert}>I'm done. Resume! </button>
-                </div>
-            )}
-
-            {/* {currentHint && (
-                <div className="nes-container is-rounded is-info opaque-alert">
-                    <p><strong>Hint:</strong> {currentHint}</p>
-                </div>
-            )} */}
-            {currentHint && (
-                <div className="nes-container is-rounded is-info opaque-alert">
-                    <p><strong>Hint:</strong> {currentHint}</p>
-                    <button className="nes-btn is-error" onClick={closeHint}>Close</button>
-                </div>
-            )}
-        </div>
-        </div>
-        
     );
 };
 
 export default ScenarioOne;
+function useRef(arg0: null) {
+    throw new Error('Function not implemented.');
+}
+

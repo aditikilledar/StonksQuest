@@ -170,15 +170,13 @@
 }
 
 .opaque-dialog-info {
-  background-color: yellow;
-  /* or any solid color */
+  background-color: yellow; /* or any solid color */
   opacity: 1;
   padding: 20px;
 }
 
 .dialog-container {
-  z-index: 2000;
-  /* Ensures dialog is above buttons and other content */
+  z-index: 2000; /* Ensures dialog is above buttons and other content */
 }
 
 .stock-control {
