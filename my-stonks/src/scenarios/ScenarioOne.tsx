@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'nes.css/css/nes.min.css';
 import './ScenarioOne.css';
-import Portfolio from '../components/Portfolio';
+
 import { Line } from 'react-chartjs-2';
 import Header from '../components/Header';
 import {
@@ -366,7 +366,8 @@ const ScenarioOne: React.FC = () => {
 
                 <div className="right-column">
                     <h4 className='title'>Goal: Try to make a profit, by buying/selling/holding stocks.</h4>
-                    {/* <h4 className='title'></h4> */} <button className={`nes-btn ${!isResumeEnabled ? 'is-disabled' : 'is-error'}`} onClick={handleResume}>Resume!</button>
+                    {/* <h4 className='title'></h4> */}
+                    <button className={`nes-btn ${!isResumeEnabled ? 'is-disabled' : 'is-error'}`} onClick={handleResume}>Resume!</button>
                     <br></br>
                     <div className="nes-container is-dark" style={{ height: '40%' }}>
                         <center><h3 className='title'>Investment Portfolio</h3></center>

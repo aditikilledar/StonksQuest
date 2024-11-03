@@ -1,6 +1,12 @@
 {
-  "dependencies": {
-    "phaser": "^3.86.0"
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-private-property-in-object"
+    ]
   },
   "devDependencies": {
     "gh-pages": "^6.2.0"

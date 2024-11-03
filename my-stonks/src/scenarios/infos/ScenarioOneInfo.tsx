@@ -1,7 +1,6 @@
 import 'nes.css/css/nes.min.css';
 import './Info.css';
-import Portfolio from '../../components/Portfolio';
-import BuyStock from '../../components/BuyStock';
+
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import Header from '../../components/Header';
 
@@ -19,7 +18,6 @@ function ScenarioOneInfo() {
                 <br></br>
                 Take a minute to understand the game rules.
                 Once you're done reading, proceed to playing the game!
-
 
                 <br></br>
                 <br></br>
