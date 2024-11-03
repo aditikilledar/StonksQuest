@@ -182,13 +182,28 @@ const ScenarioOne: React.FC = () => {
                     <p><strong>Money Remaining:</strong> ${portfolio.cash.toFixed(2)}</p>
                     <p><strong>Value Invested:</strong> ${(1000 - portfolio.cash).toFixed(2)}</p>
                     <p><strong>Total Value Worth:</strong> ${totalPortfolioValue}</p>
-                    <p><strong>Net Gain:</strong> {((${totalPortfolioValue} - (1000 - portfolio.cash)) / (1000 - portfolio.cash)) * 100).toFixed(2)}%</p>
+                    {/* <p><strong>Net Gain:</strong> ((${totalPortfolioValue} - (1000 - portfolio.cash)) / (1000 - portfolio.cash)) * 100).toFixed(2)%</p> */}
 
                 </div>
                 <br></br>
                 <div className="nes-container" style={{ height: '40%' }}>
                     <center><h3>Buy/Sell</h3></center>
-
+                    {
+                        stockSymbols.map((item, index) => (
+                            <div key={index} className="stock-control">
+                                <p>{item} - Shares: {portfolio.stocks[index].shares}</p>
+                                <button onClick={() => handleBuy(index)} className="nes-btn is-success">
+                                    Buy
+                                </button>
+                                <button onClick={() => handleSell(index)} className={`nes-btn ${portfolio.stocks[index].shares === 0 ? 'is-disabled' : 'is-error'}`} disabled={portfolio.stocks[index].shares === 0}>
+                                    Sell
+                                </button>
+                            </div>
+                        ))
+                        // stockSymbols.map((item, index) => (
+                        //     <p key={index}>{item} </p>
+                        // ))
+                    }
                 </div>
 
             </div>
