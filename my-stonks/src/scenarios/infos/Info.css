@@ -1,5 +1,9 @@
 /* src/App.css */
 
+.padded {
+    padding: 3%;
+}
+
 .container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -59,8 +63,12 @@
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    /* grid-template-columns: repeat(1, 1fr); */
     /* Create two equal columns */
     gap: 16px;
     /* Space between grid items */
+}
+
+.ul {
+    font: 'VT323';
 }

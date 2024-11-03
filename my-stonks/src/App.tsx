@@ -24,6 +24,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Home onScenarioSelect={() => { }} onTest={() => { }} />} />
           {/* The ScenarioOne component will be shown when navigating to /scenario-one */}
           <Route path="/scenario-one" element={<ScenarioOneInfo />} />
+          <Route path="/market-crash" element={<FinancialCrisisScenario />} />
           {/* <Route path="/" */}
         </Routes>
       </div>

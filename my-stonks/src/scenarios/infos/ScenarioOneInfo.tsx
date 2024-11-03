@@ -2,14 +2,26 @@ import 'nes.css/css/nes.min.css';
 import './Info.css';
 import Portfolio from '../../components/Portfolio';
 import BuyStock from '../../components/BuyStock';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+
 
 function ScenarioOneInfo() {
+    const navigate = useNavigate(); // Initialize the navigate function
     return (
-        <div className="nes-container with-title">
+        <div className="padded">
             <br></br>
-            <p className='title'>2008 Stock Market Crash: A Quick Overview</p>
+            <h3 className="nes-text is-primary">2008 Stock Market Crash: A Quick Overview</h3>
+            <br></br>
+            Take a minute to understand what the 2008 Market Crash was about.
+            Once you're done reading, proceed to playing the game!
 
-            <div className="grid-container">
+            <br></br>
+            <br></br>
+
+            <button type="button" className="nes-btn is-success" onClick={() => navigate('/market-crash')}>Start Playing! </button>
+            <br></br>
+            <br></br>
+            <div>
                 <div className="nes-container is-rounded">
                     What Caused the Crash?
                     <ul className='nes-list is-circle'>
@@ -22,7 +34,8 @@ function ScenarioOneInfo() {
 
                 </div>
 
-                <div className="nes-container is-rounded">
+
+                {/* <div className="nes-container is-rounded">
                     Then what happened?
                     <ul className='nes-list is-circle'>
                         <li>Stocks took a nosedive, losing a ton of value.</li>
@@ -30,7 +43,7 @@ function ScenarioOneInfo() {
                         <li>Home prices plummeted, leaving folks with houses worth less than what they owed.</li>
                         <li>The government swooped in with cash to save the day.</li>
                     </ul>
-                </div>
+                </div> */}
             </div>
             <br></br>
             <div className="nes-container is-rounded is-dark is-centered">
