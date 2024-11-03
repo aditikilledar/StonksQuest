@@ -182,7 +182,7 @@ const ScenarioOne: React.FC = () => {
     // Increment day if simulation is not paused
     useEffect(() => {
         if (!paused) {
-            const interval = setInterval(() => setDay((prevDay) => prevDay + 1), 1000);
+            const interval = setInterval(() => setDay((prevDay) => prevDay + 1), 500);
             return () => clearInterval(interval);
         }
     }, [paused]);
@@ -248,20 +248,26 @@ const ScenarioOne: React.FC = () => {
 
     const handleSell = (index: number) => {
         const price = prices[index][day];
-        if (portfolio.stocks[index].shares > 0) {
+        const sharesToSell = 1; // Define how many shares to sell in each click
+
+        // Check if there are enough shares to sell
+        if (portfolio.stocks[index].shares >= sharesToSell) {
             setPortfolio((prevPortfolio) => ({
                 ...prevPortfolio,
-                cash: prevPortfolio.cash + price,
-                stocks: prevPortfolio.stocks.map((stock, i) => i === index
-                    ? { shares: stock.shares - 1 }
-                    : stock
+                // Update cash by adding the price of each share sold (price * sharesToSell)
+                cash: prevPortfolio.cash + (price * sharesToSell),
+                // Update stocks by reducing the sold shares
+                stocks: prevPortfolio.stocks.map((stock, i) =>
+                    i === index ? { ...stock, shares: stock.shares - sharesToSell } : stock
                 )
             }));
+
             setSellCounts((prevCounts) =>
-                prevCounts.map((count, i) => i === index ? count + 1 : count)
+                prevCounts.map((count, i) => (i === index ? count + sharesToSell : count))
             );
         }
     };
+
 
     const createChartData = (priceSeries: number[]) => ({
         labels: Array.from({ length: day + 1 }, (_, i) => (i + 1).toString()),
@@ -303,11 +309,14 @@ const ScenarioOne: React.FC = () => {
     const valueInvested = (initialInvestment - portfolio.cash).toFixed(2); // Calculate value invested
     const gains = (Number(totalWalletValue) - initialInvestment).toFixed(2);
 
-    var isGameOver: Boolean = day >= 80;
-    var isProfitMade: Boolean = Number(totalPortfolioValue) > 1000;
+
     //var MoneyUnused: Number = 1000 - Number(totalPortfolioValue);
     var investmentMoneyLeft: Number = Math.max(portfolio.wallet, 0);
-    var profit: Number = Math.max(portfolio.cash - 1000 + Number(investmentMoneyLeft), 0);
+    var profit: Number = Math.max(Number(portfolio.cash) + 1000 - Number(investmentMoneyLeft), 0);
+
+    var isGameOver: Boolean = day >= 80;
+    var isProfitMade: Boolean = Number(profit) > 0;
+
     return (
         <div>
             <Header />
@@ -325,7 +334,8 @@ const ScenarioOne: React.FC = () => {
                 <div className="left-column">
                     <h1 className='title'>MiniGame: Market Crash Simulation</h1>
                     <div className="nes-container">
-                        <button className="nes-btn is-error" onClick={handleResume}>Resume!</button>
+
+                        <br></br>Tip: Use paused time to make investment decisions, then click the Resume button.
                         <center><h2>Day: {day + 1}</h2></center>
                         <div className="nes-container is-rounded is-dark">
                             {getCurrentMessage()}
@@ -363,16 +373,22 @@ const ScenarioOne: React.FC = () => {
 
                 <div className="right-column">
                     <h4 className='title'>Goal: Try to make a profit, by buying/selling/holding stocks.</h4>
-                    {/* <h4 className='title'></h4> */}
-                    <span>Tip: Use paused time to make investment decisions, then click the Resume button.</span>
+                    {/* <h4 className='title'></h4> */} <button className="nes-btn is-error" onClick={handleResume}>Resume!</button>
                     <br></br>
                     <div className="nes-container is-dark" style={{ height: '40%' }}>
                         <center><h3 className='title'>Investment Portfolio</h3></center>
                         <br></br>
-                        <p><strong>Amount Left in the Investment Money:</strong> ${investmentMoneyLeft.toFixed(2)}</p>
+                        <p><strong>Amount Left in Bank:</strong> ${investmentMoneyLeft.toFixed(2)}</p>
+                        <p><strong>Amount Spent from Bank:</strong> ${(1000 - Number(investmentMoneyLeft)).toFixed(2)}</p>
                         <p><strong>Value in Cash:</strong> ${(portfolio.cash).toFixed(2)}</p>
                         <p><strong>Total Shares Value Worth:</strong> ${totalPortfolioValue}</p>
                         <p><strong>Gains (Profit):</strong> ${profit.toFixed(2)} </p>
+                        <p><strong>Profit Status:</strong> {isProfitMade ? 'Profit Made' : 'No Profit'}</p> */
+                        {/* <p><strong>Money Remaining:</strong> ${portfolio.wallet.toFixed(2)}</p>
+                        <p><strong>Total invested:</strong> ${(1000 - portfolio.wallet).toFixed(2)}</p>
+                        <p><strong>Total Value Worth:</strong> ${totalPortfolioValue}</p>
+                        <p><strong>Gains (Profit):</strong> ${getProfit()}</p>
+                        <p><strong>Profit Status:</strong> {isProfitMade ? 'Profit Made' : 'No Profit'}</p> */}
                     </div>
                     <br></br>
                     <div className="nes-container" style={{ height: '40%' }}>

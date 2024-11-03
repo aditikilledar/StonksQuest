@@ -41,6 +41,7 @@ function ScenarioOneInfo() {
                             <li>Your goal is to make a profit by making smart investment decisions.</li>
                             <li>Use the hint button to learn more and drive your decisions.</li>
                             <li>Remember: Buy when it's cheap, Sell when it's not.</li>
+                            <li>Money once invested from the bank cannot be used to invest again.</li>
                         </ul>
 
                     </div>
