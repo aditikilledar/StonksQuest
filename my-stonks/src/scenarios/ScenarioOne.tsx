@@ -33,13 +33,14 @@ interface PortfolioI {
     stocks: Stock[];
 }
 
-const FinancialCrisisScenario: React.FC = () => {
+const ScenarioOne: React.FC = () => {
     const [day, setDay] = useState<number>(0);
     const [prices, setPrices] = useState<number[][]>([
         [100],
         [120],
         [80]
     ]);
+
     const [portfolio, setPortfolio] = useState<PortfolioI>({
         cash: 1000,
         stocks: [{ shares: 0 }, { shares: 0 }, { shares: 0 }]
@@ -126,7 +127,7 @@ const FinancialCrisisScenario: React.FC = () => {
                 label: 'Stock Price',
                 data: priceSeries,
                 fill: false,
-                borderColor: 'blue',
+                borderColor: 'green',
             },
         ],
     });
@@ -142,11 +143,17 @@ const FinancialCrisisScenario: React.FC = () => {
     return (
         <div className="grid-container-outer">
             <div className="left-column">
-                <div className="nes-container with-title" style={{ height: '100%' }}>
-                    <h3 className='title'>2008 Financial Crisis Scenario</h3>
-                    <p><strong>Current Phase:</strong> {getCurrentMessage()}</p>
+                <h1 className='title'>2008 Market Simulation</h1>
+                <div className="nes-container" style={{ height: '100%' }}>
+
+                    <h4 className=''>Day: {day + 1}</h4>
+                    <div className="nes-container is-rounded is-dark">
+                        {getCurrentMessage()}
+                    </div>
+                    <br></br>
                     <p><strong>Cash:</strong> ${portfolio.cash.toFixed(2)}</p>
                     <p><strong>Total Portfolio Value:</strong> ${totalPortfolioValue}</p>
+
                     {prices.map((priceSeries, index) => {
                         const currentPrice = priceSeries[day]?.toFixed(2) || "0.00";
                         const stockValue = (portfolio.stocks[index].shares * (priceSeries[day] || 0)).toFixed(2);
@@ -155,11 +162,11 @@ const FinancialCrisisScenario: React.FC = () => {
                             <div key={index} className="chart-container">
                                 <h3>{stockSymbols[index]}</h3>
                                 <Line data={createChartData(priceSeries)} />
-                                <p>Day: {day + 1}</p>
-                                <p>Price: ${currentPrice}</p>
-                                <p>Shares Held: {portfolio.stocks[index].shares}</p>
-                                <p>Value of Shares: ${stockValue}</p>
-                                <button onClick={() => handleBuy(index)} disabled={portfolio.cash < (priceSeries[day] || 0)}>
+                                {/* <p>Day: {day + 1}</p> */}
+                                {/* <p>Price: ${currentPrice}</p> */}
+                                {/* <p>Shares Held: {portfolio.stocks[index].shares}</p> */}
+                                {/* <p>Value of Shares: ${stockValue}</p> */}
+                                {/* <button onClick={() => handleBuy(index)} disabled={portfolio.cash < (priceSeries[day] || 0)}>
                                     Buy
                                 </button>
                                 <button onClick={() => handleSell(index)} disabled={portfolio.stocks[index].shares <= 0}>
@@ -171,8 +178,10 @@ const FinancialCrisisScenario: React.FC = () => {
                 </div>
             </div>
             <div className="right-column">
-                <div className="nes-container with-title" style={{ height: '100%' }}>
-                    <h3 className='title'>Scenario</h3>
+                <h3 className='title'>Goal: Try to make a profit.</h3>
+                <h3 className='title'>Decide whether to buy, hold, or sell based on the market conditions.</h3>
+                <div className="nes-container" style={{ height: '100%' }}>
+                    <center><h3 className='title'>Portfolio</h3></center>
                 </div>
                 <div className="nes-container with-title" style={{ height: '100%' }}>
                     <Portfolio />
@@ -182,48 +191,4 @@ const FinancialCrisisScenario: React.FC = () => {
     );
 };
 
-export default FinancialCrisisScenario;
-
-
-// function ScenarioOne() {
-//     return (
-//         <div className="grid-container-outer">
-//             <div className="left-column">
-//                 <div className="nes-container with-title " style={{'height':'100%'}}>
-//                      <h3 className='title'>Scenario</h3>
-//                  </div>
-//             </div>
-//             <div className="right-column">
-//                 <div className="box-inner">
-//                     <div className="nes-container with-title" style={{'height':'100%'}}>
-//                         <h3 className='title'>Scenario</h3>
-//                     </div>
-//                 </div>
-//                 <div className="box-inner" >
-//                     <div className="nes-container with-title" style={{'height':'100%'}}>
-//                          <Portfolio />
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-
-        // <div className='container-outer'>
-        //     <div className="box">
-        //         <div className="nes-container with-title">
-        //             <h3 className='title'>Scenario</h3>
-        //         </div>
-        //     </div>
-        //     <div className="box">
-        //         <div className="nes-container with-title">
-        //             <h3 className='title'>Stock View</h3>
-        //         </div>
-        //         <div className="nes-container with-title">
-        //             <Portfolio />
-        //         </div>
-        //     </div>
-        // </div>
-        
-//     );
-// }
-
-// export default ScenarioOne;
+export default ScenarioOne;
