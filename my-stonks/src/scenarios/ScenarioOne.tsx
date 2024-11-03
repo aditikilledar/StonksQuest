@@ -122,15 +122,15 @@ const ScenarioOne: React.FC = () => {
     const stockInfo = [
         {
             title: "Global BankCorp",
-            description: "Global BankCorp is a prominent international banking institution that stands out for its commitment to innovation..."
+            description: "Medium Risk. Global BankCorp is a prominent international banking institution that stands out for its commitment to innovation. Boasts profits, but is also undergoing"
         },
         {
             title: "SafeHold Realty Trust",
-            description: "SafeHold Realty Trust is a premier real estate investment trust (REIT) specializing in top-tier commercial properties..."
+            description: "Good performer! SafeHold Realty Trust is a premier real estate investment trust (REIT) specializing in top-tier commercial properties. Stable YoY growth."
         },
         {
             title: "GreenEnergy Innovations Inc.",
-            description: "GreenEnergy Innovations is a pioneering renewable energy company focused on advancing clean power solutions..."
+            description: "High Risk! GreenEnergy Innovations is a pioneering renewable energy company. Management has been unstable in the past."
         }
     ];
 
@@ -146,6 +146,8 @@ const ScenarioOne: React.FC = () => {
         isGameOver = false;
         isProfitMade = false;
     };
+
+
 
     useEffect(() => {
         const handleVisibilityChange = () => {
@@ -301,7 +303,7 @@ const ScenarioOne: React.FC = () => {
     const valueInvested = (initialInvestment - portfolio.cash).toFixed(2); // Calculate value invested
     const gains = (Number(totalWalletValue) - initialInvestment).toFixed(2);
 
-    var isGameOver: Boolean = day >= 200;
+    var isGameOver: Boolean = day >= 80;
     var isProfitMade: Boolean = Number(totalPortfolioValue) > 1000;
     //var MoneyUnused: Number = 1000 - Number(totalPortfolioValue);
     var investmentMoneyLeft: Number = Math.max(portfolio.wallet, 0);
@@ -360,19 +362,21 @@ const ScenarioOne: React.FC = () => {
                 </div>
 
                 <div className="right-column">
-                    <h4 className='title'>Goal: Try to make a profit.</h4>
-                    <h4 className='title'>Decide whether to buy, hold, or sell based on the market conditions.</h4>
+                    <h4 className='title'>Goal: Try to make a profit, by buying/selling/holding stocks.</h4>
+                    {/* <h4 className='title'></h4> */}
+                    <span>Tip: Use paused time to make investment decisions, then click the Resume button.</span>
                     <br></br>
-                    <div className="nes-container" style={{ height: '40%' }}>
-                        <center><h3 className='title'>Portfolio</h3></center>
-                        <p><strong>Money Left in the Investment money:</strong> ${investmentMoneyLeft.toFixed(2)}</p>
+                    <div className="nes-container is-dark" style={{ height: '40%' }}>
+                        <center><h3 className='title'>Investment Portfolio</h3></center>
+                        <br></br>
+                        <p><strong>Amount Left in the Investment Money:</strong> ${investmentMoneyLeft.toFixed(2)}</p>
                         <p><strong>Value in Cash:</strong> ${(portfolio.cash).toFixed(2)}</p>
                         <p><strong>Total Shares Value Worth:</strong> ${totalPortfolioValue}</p>
                         <p><strong>Gains (Profit):</strong> ${profit.toFixed(2)} </p>
                     </div>
                     <br></br>
                     <div className="nes-container" style={{ height: '40%' }}>
-                        <center><h3>Buy/Sell</h3></center>
+                        <center><h3>Buy/Sell Stocks</h3></center>
                         {
                             stockSymbols.map((item, index) => (
                                 <div key={index} className="stock-control">
@@ -383,6 +387,7 @@ const ScenarioOne: React.FC = () => {
                                     <button onClick={() => handleSell(index)} className={`nes-btn ${portfolio.stocks[index].shares === 0 ? 'is-disabled' : 'is-error'}`} disabled={portfolio.stocks[index].shares === 0}>
                                         Sell
                                     </button>
+                                    {(portfolio.stocks[index].shares * (prices[index][day] || 0)).toFixed(2)}
                                 </div>
                             ))
                             // stockSymbols.map((item, index) => (
@@ -397,7 +402,7 @@ const ScenarioOne: React.FC = () => {
 
                 {alertMessage && (
                     <div className="nes-container is-rounded is-warning opaque-alert">
-                        <p><strong>Alert:</strong> {alertMessage}<br></br><br></br> Tip: Use this paused time to buy, sell, or hold onto stocks.</p>
+                        <p><strong>Alert:</strong> {alertMessage}</p>
                         <button className="nes-btn is-error" onClick={handleCloseAlert}>Close </button>
                     </div>
                 )}

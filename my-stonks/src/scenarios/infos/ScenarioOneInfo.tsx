@@ -14,7 +14,10 @@ function ScenarioOneInfo() {
                 <br></br>
                 <h3 className="nes-text is-primary">2008 Stock Market Crash: A Quick Overview</h3>
                 <br></br>
-                Take a minute to understand what the 2008 Market Crash was about.
+
+                You will now play the market, during a market crash scenario.
+                <br></br>
+                Take a minute to understand the game rules.
                 Once you're done reading, proceed to playing the game!
 
 
@@ -22,13 +25,22 @@ function ScenarioOneInfo() {
                 <br></br>
                 <div>
                     <div className="nes-container is-rounded">
-                        What Caused the Crash?
+                        {/* What Caused the Crash?
                         <ul className='nes-list is-circle'>
                             <li>Housing prices soared as banks gave out risky loans.</li>
                             <li>Subprime mortgages went to borrowers who couldn’t pay them back.</li>
                             <li>Banks bundled these bad loans into investment products.</li>
                             <li>When homeowners defaulted, investments lost value.</li>
                             <li>The financial system toppled like a game of Jenga.</li>
+                        </ul> */}
+
+                        Game Rules:
+
+                        <ul className='nes-list is-circle'>
+                            <li>Play the market, during a market crash.</li>
+                            <li>Your goal is to make a profit by making smart investment decisions.</li>
+                            <li>Use the hint button to learn more and drive your decisions.</li>
+                            <li>Remember: Buy when it's cheap, Sell when it's not.</li>
                         </ul>
 
                     </div>
