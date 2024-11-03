@@ -68,22 +68,22 @@ const ScenarioOne: React.FC = () => {
 
     const hints = [
         // Days 0-20: Housing market weakens as home prices start to fall.
-        { dayStart: 0, dayEnd: 20, hint: "Monitor the housing market closely. If prices fall, consider buying undervalued stocks, but be cautious of overall market trends." },
+        { dayStart: 0, dayEnd: 10, hint: "Monitor the housing market closely. If prices fall, consider buying undervalued stocks, but be cautious of overall market trends." },
     
         // Days 21-40: Mortgage defaults rise, hitting banks with losses.
-        { dayStart: 21, dayEnd: 40, hint: "Mortgage defaults may lead to stock price drops. Hold off on buying bank stocks, and consider selling if you already own them." },
+        { dayStart: 11, dayEnd: 27, hint: "Mortgage defaults may lead to stock price drops. Hold off on buying bank stocks, and consider selling if you already own them." },
     
         // Days 41-60: Lehman Brothers collapses, triggering panic.
-        { dayStart: 41, dayEnd: 60, hint: "During market panic, consider buying stocks that are undervalued, but be ready to sell if prices continue to drop." },
+        { dayStart: 28, dayEnd: 35, hint: "During market panic, consider buying stocks that are undervalued, but be ready to sell if prices continue to drop." },
     
         // Days 61-80: Global markets plunge as fears of recession grow.
-        { dayStart: 61, dayEnd: 80, hint: "Recession fears might mean it's time to sell weaker stocks to minimize losses. Hold onto strong stocks with solid fundamentals." },
+        { dayStart: 36, dayEnd: 42, hint: "Recession fears might mean it's time to sell weaker stocks to minimize losses. Hold onto strong stocks with solid fundamentals." },
     
         // Days 81-100: Government bailouts aim to stabilize the market.
-        { dayStart: 81, dayEnd: 100, hint: "Watch for stocks that may benefit from government bailouts. Consider buying these stocks, but sell any stocks that are not performing well." },
+        { dayStart: 43, dayEnd: 50, hint: "Watch for stocks that may benefit from government bailouts. Consider buying these stocks, but sell any stocks that are not performing well." },
     
         // Days 101-120: Early signs of recovery as market stabilizes.
-        { dayStart: 101, dayEnd: 120, hint: "If the market shows signs of recovery, it may be a good time to buy strong-performing stocks. Hold onto your investments as the market stabilizes." }
+        { dayStart: 51, dayEnd: 60, hint: "If the market shows signs of recovery, it may be a good time to buy strong-performing stocks. Hold onto your investments as the market stabilizes." }
     ];
 
     const stockSymbols = ["Stock A", "Stock B", "Stock C"];
@@ -386,6 +386,8 @@ const ScenarioOne: React.FC = () => {
                         //     <p key={index}>{item} </p>
                         // ))
                     }
+                     <button className="nes-btn is-primary" onClick={requestHint}>Request Hint</button>
+
                 </div>
 
                 </div>
