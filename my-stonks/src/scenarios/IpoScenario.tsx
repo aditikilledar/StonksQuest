@@ -92,7 +92,7 @@ const IPOScenario: React.FC = () => {
         }
     ];
 
-    const stockSymbols = ["Stock A", "Stock B", "Stock C"];
+    const stockSymbols = ["Global BankCorp", "SafeHold Realty Trust", "IPO TechCorp"];
 
     const [buyCounts, setBuyCounts] = useState<number[]>(stockSymbols.map(() => 0));
     const [sellCounts, setSellCounts] = useState<number[]>(stockSymbols.map(() => 0));
