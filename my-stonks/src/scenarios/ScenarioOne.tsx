@@ -3,6 +3,7 @@ import 'nes.css/css/nes.min.css';
 import './ScenarioOne.css';
 import Portfolio from '../components/Portfolio';
 import { Line } from 'react-chartjs-2';
+import Header from '../components/Header';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -197,9 +198,11 @@ const ScenarioOne: React.FC = () => {
 
 
     return (
-        <div className="grid-container-outer">
+        <div>
+            <Header/>
+            <div className="grid-container-outer">
 
-            {!isGameOver && (
+            {isGameOver && (
                 <div className="game-over-overlay">
                     <h1>GAME OVER</h1>
                     <h2>{isProfitMade ? 'YOU WIN' : 'YOU LOSE'}</h2>
@@ -288,6 +291,8 @@ const ScenarioOne: React.FC = () => {
                 </div>
             )}
         </div>
+        </div>
+        
     );
 };
 

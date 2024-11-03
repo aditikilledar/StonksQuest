@@ -180,3 +180,21 @@ body {
 .test-button:hover {
   background-color: #e6b800; /* Darker yellow on hover */
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+}
+
+.header-title {
+  margin: 0;
+}
+
+.centered-button {
+  display: grid;
+  place-items: center; /* Center both horizontally and vertically */
+}

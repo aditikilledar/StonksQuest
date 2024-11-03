@@ -3,12 +3,14 @@ import './Info.css';
 import Portfolio from '../../components/Portfolio';
 import BuyStock from '../../components/BuyStock';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-
+import Header from '../../components/Header';
 
 function ScenarioOneInfo() {
     const navigate = useNavigate(); // Initialize the navigate function
     return (
-        <div className="padded">
+        <div>
+            <Header/>
+            <div className="padded">
             <br></br>
             <h3 className="nes-text is-primary">2008 Stock Market Crash: A Quick Overview</h3>
             <br></br>
@@ -17,8 +19,6 @@ function ScenarioOneInfo() {
 
             <br></br>
             <br></br>
-
-            <button type="button" className="nes-btn is-success" onClick={() => navigate('/market-crash')}>Start Playing! </button>
             <br></br>
             <br></br>
             <div>
@@ -56,6 +56,11 @@ function ScenarioOneInfo() {
                 </ul>
 
             </div>
+            <div className='centered-button'>
+                <button type="button" className="nes-btn is-success" onClick={() => navigate('/market-crash')}>Start Playing! </button>
+            </div>
+        </div>
+
         </div>
     );
 }
