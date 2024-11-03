@@ -149,8 +149,9 @@ const ScenarioOne: React.FC = () => {
                     newPrice = previousPrice * (1 - Math.random() * 0.01);
                 } else if (day < 50) {
                         newPrice = previousPrice * (1 + Math.random() * 0.01);
+                    newPrice = previousPrice * (1 + Math.random() * 0.01);
                 } else {
-                    newPrice = previousPrice * (1 + Math.random() * 0.1);
+                    newPrice = previousPrice * (1 + Math.random() * 0.04);
                 }
                 return [...priceSeries, newPrice];
             }));
@@ -223,9 +224,13 @@ const ScenarioOne: React.FC = () => {
         }, 0)
     ).toFixed(2);
 
- 
+        const currentPrice = prices[index][day]; // Get current price based on your logic
+        return total + (stock.shares * (currentPrice || 0));
+    }, 0);
 
     var isGameOver: Boolean = day >= 300;
+    const totalWalletValue = portfolio.cash + totalStockValue; // Total value of portfolio
+    const valueInvested = (initialInvestment - portfolio.cash).toFixed(2); // Calculate value invested
     var isProfitMade: Boolean = Number(totalPortfolioValue) > 1000;
 
     return (
@@ -235,12 +240,11 @@ const ScenarioOne: React.FC = () => {
 
             {isGameOver && (
                 <div className="game-over-overlay">
-                    <h1>GAME OVER</h1>
                     <h2>{isProfitMade ? 'YOU WIN' : 'YOU LOSE'}</h2>
                     <button className='nes-btn is-success' onClick={() => navigate('/scenario-one')}>Start Over</button>
-                    <button className='nes-btn is-warning'>Back to Scenarios</button>
                 </div>
             )}
+                        <button className='nes-btn is-success' onClick={() => navigate('/scenario-one')}>Start Over</button>
 
             <div className="left-column">
                 <h1 className='title'>MiniGame: Market Crash Simulation</h1>
@@ -257,72 +261,85 @@ const ScenarioOne: React.FC = () => {
 
                         return (
                             <div key={index} className="chart-container">
-                                <h3>{stockSymbols[index]} ${currentPrice}</h3>
-
-                                <Line data={createChartData(priceSeries)} />
-                                <button className="nes-btn is-primary" onClick={() => openDialog(index)}>
-                                    View Info
-                                </button>
-
-                            {activeDialog === index && (
-                                <dialog className="nes-dialog is-rounded opaque-dialog-info" open>
-                                    <form method="dialog">
-                                        <p className="title">{stockInfo[index].title}</p>
-                                        <p>{stockInfo[index].description}</p>
-                                        <menu className="dialog-menu">
-                                            <button className="nes-btn" onClick={closeDialog}>Close</button>
-                                        </menu>
-                                    </form>
-                                </dialog>
-                            )}
+                        <center><h2>Day: {day + 1}</h2></center>
+                        <div className="nes-container is-rounded is-dark">
+                            {getCurrentMessage()}
                         </div>
-                        );
-                    })}
+                        <br></br>
+                        {prices.map((priceSeries, index) => {
+                            const currentPrice = priceSeries[day]?.toFixed(2) || "0.00";
+                            const stockValue = (portfolio.stocks[index].shares * (priceSeries[day] || 0)).toFixed(2);
+
+                            return (
+                                <div key={index} className="chart-container">
+                                    <h3>{stockSymbols[index]} ${currentPrice}</h3>
+
+                                    <Line data={createChartData(priceSeries)} />
+                                    <button className="nes-btn is-primary" onClick={() => openDialog(index)}>
+                                        View Info
+                                    </button>
+
+                                    {activeDialog === index && (
+                                        <dialog className="nes-dialog is-rounded opaque-dialog-info" open>
+                                            <form method="dialog">
+                                                <p className="title">{stockInfo[index].title}</p>
+                                                <p>{stockInfo[index].description}</p>
+                                                <menu className="dialog-menu">
+                                                    <button className="nes-btn" onClick={closeDialog}>Close</button>
+                                                </menu>
+                                            </form>
+                                        </dialog>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
+
+                <div className="right-column">
+                    <h4 className='title'>Goal: Try to make a profit.</h4>
+                    <h4 className='title'>Decide whether to buy, hold, or sell based on the market conditions.</h4>
+                    <br></br>
+                    <div className="nes-container" style={{ height: '40%' }}>
+                        <center><h3 className='title'>Portfolio</h3></center>
+                        <p><strong>Money Remaining:</strong> ${portfolio.cash.toFixed(2)}</p>
+                        <p><strong>Wallet:</strong> ${(1000 - portfolio.cash).toFixed(2)}</p>
+                        <p><strong>Total Value Worth:</strong> ${totalPortfolioValue}</p>
+                        <p><strong>Gains (Profit):</strong> ${totalPortfolioValue}</p>
+                        <p><strong>Profit Status:</strong> {isProfitMade ? 'Profit Made' : 'No Profit'}</p>
+                    </div>
+                    <br></br>
+                    <div className="nes-container" style={{ height: '40%' }}>
+                        <center><h3>Buy/Sell</h3></center>
+                        {
+                            stockSymbols.map((item, index) => (
+                                <div key={index} className="stock-control">
+                                    <p>{item} - Shares: {portfolio.stocks[index].shares}</p>
+                                    <button onClick={() => handleBuy(index)} className="nes-btn is-success">
+                                        Buy
+                                    </button>
+                                    <button onClick={() => handleSell(index)} className={`nes-btn ${portfolio.stocks[index].shares === 0 ? 'is-disabled' : 'is-error'}`} disabled={portfolio.stocks[index].shares === 0}>
+                                        Sell
+                                    </button>
+                                </div>
+                            ))
+                            // stockSymbols.map((item, index) => (
+                            //     <p key={index}>{item} </p>
+                            // ))
+                        }
+                    </div>
+
+                </div>
+
+                {alertMessage && (
+                    <div className="nes-container is-rounded is-warning opaque-alert">
+                        <p><strong>Alert:</strong> {alertMessage}<br></br><br></br> Tip: Use this paused time to buy, sell, or hold onto stocks.</p>
+                        <button className="nes-btn is-primary" onClick={handleCloseAlert}>I'm done. Resume! </button>
+                    </div>
+                )}
             </div>
+        </div >
 
-            <div className="right-column">
-                <h4 className='title'>Goal: Try to make a profit.</h4>
-                <h4 className='title'>Decide whether to buy, hold, or sell based on the market conditions.</h4>
-                <br></br>
-                <div className="nes-container" style={{ height: '40%' }}>
-                    <center><h3 className='title'>Portfolio</h3></center>
-                    <p><strong>Money Remaining:</strong> ${portfolio.cash.toFixed(2)}</p>
-                    <p><strong>Value Invested:</strong> ${(1000 - portfolio.cash).toFixed(2)}</p>
-                    <p><strong>Total Value Worth:</strong> ${totalPortfolioValue}</p>
-                </div>
-                <br></br>
-                <div className="nes-container" style={{ height: '40%' }}>
-                    <center><h3>Buy/Sell</h3></center>
-                    {
-                        stockSymbols.map((item, index) => (
-                            <div key={index} className="stock-control">
-                                <p>{item} - Shares: {portfolio.stocks[index].shares}</p>
-                                <button onClick={() => handleBuy(index)} className="nes-btn is-success">
-                                    Buy
-                                </button>
-                                <button onClick={() => handleSell(index)} className={`nes-btn ${portfolio.stocks[index].shares === 0 ? 'is-disabled' : 'is-error'}`} disabled={portfolio.stocks[index].shares === 0}>
-                                    Sell
-                                </button>
-                            </div>
-                        ))
-                        // stockSymbols.map((item, index) => (
-                        //     <p key={index}>{item} </p>
-                        // ))
-                    }
-                </div>
-
-            </div>
-
-            {alertMessage && (
-                <div className="nes-container is-rounded is-warning opaque-alert">
-                    <p><strong>Alert:</strong> {alertMessage}<br></br><br></br> Tip: Use this paused time to buy, sell, or hold onto stocks.</p>
-                    <button className="nes-btn is-primary" onClick={handleCloseAlert}>I'm done. Resume! </button>
-                </div>
-            )}
-        </div>
-        </div>
-        
     );
 };
 
