@@ -140,6 +140,11 @@ const ScenarioOne: React.FC = () => {
         }, 0)
     ).toFixed(2);
 
+    const getNetGain = (
+        ((totalPortfolioValue - (1000 - portfolio.cash)) / (1000 - portfolio.cash)) * 100
+    ).toFixed(2);
+
+
     return (
         <div className="grid-container-outer">
             <div className="left-column">
@@ -173,7 +178,8 @@ const ScenarioOne: React.FC = () => {
                     <p><strong>Money Remaining:</strong> ${portfolio.cash.toFixed(2)}</p>
                     <p><strong>Value Invested:</strong> ${(1000 - portfolio.cash).toFixed(2)}</p>
                     <p><strong>Total Value Worth:</strong> ${totalPortfolioValue}</p>
-                    <p><strong>Net Gain:</strong> {((${totalPortfolioValue} - (1000 - portfolio.cash)) / (1000 - portfolio.cash)) * 100).toFixed(2)}%</p>
+                    <p><strong>Net Gain:</strong> {getNetGain()}%</p>
+
 
                 </div>
                 <br></br>
@@ -183,67 +189,9 @@ const ScenarioOne: React.FC = () => {
                 </div>
 
             </div>
-            {/* <div className="right-column">
-                <h3 className='title'>Goal: Try to make a profit.</h3>
-                <h3 className='title'>Decide whether to buy, hold, or sell based on the market conditions.</h3>
-                <div className="nes-container" style={{ height: '100%' }}>
-                    <center><h3 className='title'>Portfolio</h3></center>
-                </div>
-                <div className="nes-container with-title" style={{ height: '100%' }}>
-                    <p><strong>Cash:</strong> ${portfolio.cash.toFixed(2)}</p>
-                    <p><strong>Total Portfolio Value:</strong> ${totalPortfolioValue}</p>
-                </div>
-                <div className="nes-container with-title" style={{ height: '50%' }}>
-                    <h3 className='title'>Buy/Sell</h3>
-                </div>
 
-            </div> */}
         </div >
     );
 };
 
 export default ScenarioOne;
-
-
-// function ScenarioOne() {
-//     return (
-//         <div className="grid-container-outer">
-//             <div className="left-column">
-//                 <div className="nes-container with-title " style={{'height':'100%'}}>
-//                      <h3 className='title'>Scenario</h3>
-//                  </div>
-//             </div>
-//             <div className="right-column">
-//                 <div className="box-inner">
-//                     <div className="nes-container with-title" style={{'height':'100%'}}>
-//                         <h3 className='title'>Scenario</h3>
-//                     </div>
-//                 </div>
-//                 <div className="box-inner" >
-//                     <div className="nes-container with-title" style={{'height':'100%'}}>
-//                          <Portfolio />
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-
-// <div className='container-outer'>
-//     <div className="box">
-//         <div className="nes-container with-title">
-//             <h3 className='title'>Scenario</h3>
-//         </div>
-//     </div>
-//     <div className="box">
-//         <div className="nes-container with-title">
-//             <h3 className='title'>Stock View</h3>
-//         </div>
-//         <div className="nes-container with-title">
-//             <Portfolio />
-//         </div>
-//     </div>
-// </div>
-
-//     );
-// }
-
-// export default ScenarioOne;
