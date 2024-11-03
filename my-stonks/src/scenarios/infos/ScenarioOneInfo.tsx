@@ -12,7 +12,7 @@ function ScenarioOneInfo() {
             <Header />
             <div className="padded">
                 <br></br>
-                <h3 className="nes-text is-primary">2008 Stock Market Crash: A Quick Overview</h3>
+                <h3 className="nes-text is-primary">Stock Market Crashes: A Quick Overview</h3>
                 <br></br>
 
                 You will now play the market, during a market crash scenario.
@@ -39,6 +39,7 @@ function ScenarioOneInfo() {
                         <ul className='nes-list is-circle'>
                             <li>Play the market for <b>80 days</b>, during a market crash.</li>
                             <li>Your goal is to make a profit by making smart investment decisions.</li>
+                            <li>Pay attention to alerts. They affect the market.</li>
                             <li>Use the hint button to learn more and drive your decisions.</li>
                             <li>Remember: Buy when it's cheap, Sell when it's not.</li>
                             <li>Tip: There's a "Resume!" button to resume after an alert!</li>
