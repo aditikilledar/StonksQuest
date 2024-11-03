@@ -146,3 +146,10 @@
   border-radius: 8px;
   z-index: 1000; /* Ensure it appears above other elements */
 }
+
+.stock-control {
+  display: flex;
+  align-items: center;  /* Centers items vertically */
+  gap: 10px;            /* Adds space between elements */
+  margin-bottom: 5px;   /* Optional: spacing between rows */
+}

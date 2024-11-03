@@ -168,10 +168,6 @@ const ScenarioOne: React.FC = () => {
         setPaused(false); // Resume the day counter
     };
 
-    const getNetGain = (
-        ((totalPortfolioValue - (1000 - portfolio.cash)) / (1000 - portfolio.cash)) * 100
-    ).toFixed(2);
-
 
     return (
         <div className="grid-container-outer">
@@ -190,7 +186,8 @@ const ScenarioOne: React.FC = () => {
 
                         return (
                             <div key={index} className="chart-container">
-                                <h3>{stockSymbols[index]}</h3>
+                                <h3>{stockSymbols[index]} ${currentPrice}</h3>
+
                                 <Line data={createChartData(priceSeries)} />
                             </div>
                         );
@@ -206,8 +203,6 @@ const ScenarioOne: React.FC = () => {
                     <p><strong>Money Remaining:</strong> ${portfolio.cash.toFixed(2)}</p>
                     <p><strong>Value Invested:</strong> ${(1000 - portfolio.cash).toFixed(2)}</p>
                     <p><strong>Total Value Worth:</strong> ${totalPortfolioValue}</p>
-                    {/* <p><strong>Net Gain:</strong> ((${totalPortfolioValue} - (1000 - portfolio.cash)) / (1000 - portfolio.cash)) * 100).toFixed(2)%</p> */}
-                    <p><strong>Net Gain:</strong> {getNetGain()}%</p>
 
 
                 </div>
