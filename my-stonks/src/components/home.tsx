@@ -18,7 +18,7 @@ const Home: React.FC = () => {
         <button className="game-button" onClick={() => navigate('/scenario-one')}>Market Crash Simulation</button>
         <button className="game-button" onClick={() => navigate('/scenario-two')}>Mergers & Acquisitions Simulation</button>
         <button className="game-button" onClick={() => navigate('/ipo-scenario-info')}>IPO Excitement Simulation</button>
-        <button className="game-button" onClick={() => navigate('/scenario-four')}>Scenario 4</button>
+        <button className="game-button" onClick={() => navigate('/scenario-four')}>Earnings Report Simulation</button>
 
         {/* <button className="game-button test-button" onClick={onTest}>Test</button> */}
 
