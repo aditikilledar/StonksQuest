@@ -10,23 +10,23 @@ function ScenarioFourInfo() {
             <Header />
             <div className="padded">
                 <br></br>
-                <h3 className="nes-text is-primary">Mergers & Acquisitions (M&A): Strategic Moves</h3>
+                <h3 className="nes-text is-primary">Earnings Report Impact: Analyzing Financial Performance</h3>
                 <br></br>
 
-                In this scenario, you’ll navigate a company merger. Your portfolio includes a company that’s merging with another, causing stock fluctuations.
+                In this scenario, a company in your portfolio has released its quarterly earnings report, which has led to immediate stock price movements.
                 <br></br>
-                Take a moment to understand the rules before diving into the game!
+                Take a moment to understand the rules before you start making your investment decisions!
                 <br></br>
                 <br></br>
                 <div>
                     <div className="nes-container is-rounded">
                         Game Rules:
                         <ul className='nes-list is-circle'>
-                            <li>Your goal: make a profit as the merger progresses and affects stock prices.</li>
-                            <li>Track news and alerts about the merger to inform your investment decisions.</li>
-                            <li>Use the hint button for tips on market reactions in each phase of the merger.</li>
-                            <li>Decide whether to hold, buy more, or sell your shares based on stock performance.</li>
-                            <li>Remember: Money invested once is locked in, so strategize carefully!</li>
+                            <li>Your objective is to maximize profit by analyzing the company's earnings report.</li>
+                            <li>Follow alerts on the report to gauge market sentiment and short-term impacts on stock price.</li>
+                            <li>Use the hint button for insights into how earnings reports generally affect the market.</li>
+                            <li>Decide whether to buy more, hold, or sell your shares based on the company's financial performance.</li>
+                            <li>Remember: Once money is invested, it remains tied up, so plan your moves carefully!</li>
                         </ul>
                     </div>
                 </div>
@@ -34,10 +34,10 @@ function ScenarioFourInfo() {
                 <div className="nes-container is-rounded is-dark is-centered">
                     Investor Tips:
                     <ul className='nes-list is-circle'>
-                        <li>Don’t rush! Mergers are unpredictable—monitor each phase carefully.</li>
-                        <li>Look for synergies and growth opportunities but beware of integration risks.</li>
-                        <li>Consider holding if the company is strong, but sell if uncertainty grows.</li>
-                        <li>Use market dips strategically to increase your holdings if the stock seems promising.</li>
+                        <li>Don’t overreact! Look closely at the company's growth metrics, profit margins, and outlook.</li>
+                        <li>Consider holding if the company has solid fundamentals, even if short-term results are mixed.</li>
+                        <li>Sell if you notice red flags, like declining revenue or increasing debt.</li>
+                        <li>Use dips to buy more if the company's long-term prospects remain strong.</li>
                     </ul>
                 </div>
                 <br></br>
