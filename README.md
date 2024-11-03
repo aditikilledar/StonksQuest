@@ -18,14 +18,10 @@ Ride the Trend 📈: If an alert says something positive about tech in general, 
 
 ## Getting started
 To get started with StonkQuest locally
-1. Clone this repository
-   git clone https://github.com/yourusername/StonkQuest.git
+1. Clone this repository: git clone https://github.com/yourusername/StonkQuest.git
 
-2. Navigate to the project directory
-   cd StonkQuest
+2. Navigate to the project directory: cd StonkQuest
    
-3. Install dependencies
-   npm install
+3. Install dependencies: npm install
    
-4. Run the app
-   npm start
+4. Run the app: npm start
