@@ -19,7 +19,6 @@ function ScenarioOneInfo() {
                 Take a minute to understand the game rules.
                 Once you're done reading, proceed to playing the game!
 
-
                 <br></br>
                 <br></br>
                 <div>
