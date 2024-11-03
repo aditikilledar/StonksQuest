@@ -82,8 +82,6 @@ const ScenarioOne: React.FC = () => {
         }
     ];
 
-
-
     const resetGame = () => {
         console.log("HIIII")
         // Reset state when the component mounts
@@ -148,7 +146,6 @@ const ScenarioOne: React.FC = () => {
                 } else if (day < 42) {
                     newPrice = previousPrice * (1 - Math.random() * 0.01);
                 } else if (day < 50) {
-                        newPrice = previousPrice * (1 + Math.random() * 0.01);
                     newPrice = previousPrice * (1 + Math.random() * 0.01);
                 } else {
                     newPrice = previousPrice * (1 + Math.random() * 0.04);
@@ -158,6 +155,7 @@ const ScenarioOne: React.FC = () => {
             checkForAlert();
         }
     }, [day]);
+
     const handleCloseAlert = () => {
         setAlertMessage(null);
         setPaused(false);
@@ -224,43 +222,38 @@ const ScenarioOne: React.FC = () => {
         }, 0)
     ).toFixed(2);
 
+    const totalStockValue = portfolio.stocks.reduce((total, stock, index) => {
+        // Assuming prices is an array of current stock prices
         const currentPrice = prices[index][day]; // Get current price based on your logic
         return total + (stock.shares * (currentPrice || 0));
     }, 0);
 
-    var isGameOver: Boolean = day >= 300;
+    const initialInvestment = 1000
     const totalWalletValue = portfolio.cash + totalStockValue; // Total value of portfolio
     const valueInvested = (initialInvestment - portfolio.cash).toFixed(2); // Calculate value invested
+    const gains = (Number(totalWalletValue) - initialInvestment).toFixed(2);
+
+    var isGameOver: Boolean = day >= 200;
     var isProfitMade: Boolean = Number(totalPortfolioValue) > 1000;
 
     return (
         <div>
-            <Header/>
+            <Header />
             <div className="grid-container-outer">
 
-            {isGameOver && (
-                <div className="game-over-overlay">
-                    <h2>{isProfitMade ? 'YOU WIN' : 'YOU LOSE'}</h2>
-                    <button className='nes-btn is-success' onClick={() => navigate('/scenario-one')}>Start Over</button>
-                </div>
-            )}
+                {isGameOver && (
+                    <div className="game-over-overlay">
+                        <h1>GAME OVER</h1>
+                        <h2>{isProfitMade ? 'YOU WIN' : 'YOU LOSE'}</h2>
                         <button className='nes-btn is-success' onClick={() => navigate('/scenario-one')}>Start Over</button>
-
-            <div className="left-column">
-                <h1 className='title'>MiniGame: Market Crash Simulation</h1>
-                <div className="nes-container">
-
-                    <center><h2>Day: {day + 1}</h2></center>
-                    <div className="nes-container is-rounded is-dark">
-                        {getCurrentMessage()}
+                        <button className='nes-btn is-warning' onClick={() => navigate('/')}> Back to Scenarios</button>
                     </div>
-                    <br></br>
-                    {prices.map((priceSeries, index) => {
-                        const currentPrice = priceSeries[day]?.toFixed(2) || "0.00";
-                        const stockValue = (portfolio.stocks[index].shares * (priceSeries[day] || 0)).toFixed(2);
+                )}
 
-                        return (
-                            <div key={index} className="chart-container">
+                <div className="left-column">
+                    <h1 className='title'>MiniGame: Market Crash Simulation</h1>
+                    <div className="nes-container">
+
                         <center><h2>Day: {day + 1}</h2></center>
                         <div className="nes-container is-rounded is-dark">
                             {getCurrentMessage()}
