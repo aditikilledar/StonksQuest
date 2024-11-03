@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'nes.css/css/nes.min.css';
-import './ScenarioOne.css';
+import './ScenarioTwo.css';
 import Portfolio from '../components/Portfolio';
 import { Line } from 'react-chartjs-2';
 import {
@@ -33,77 +33,70 @@ interface PortfolioI {
     stocks: Stock[];
 }
 
-const FinancialCrisisScenario: React.FC = () => {
+const TechBoomOrBustScenario: React.FC = () => {
     const [day, setDay] = useState<number>(0);
     const [prices, setPrices] = useState<number[][]>([
-        [100],
-        [120],
-        [80]
+        [150],  // Tech Stock
+        [100],  // Industrial Stock
+        [90]    // Utility Stock
     ]);
     const [portfolio, setPortfolio] = useState<PortfolioI>({
         cash: 1000,
         stocks: [{ shares: 0 }, { shares: 0 }, { shares: 0 }]
     });
-    const [paused, setPaused] = useState<boolean>(false);
-    const [alertMessage, setAlertMessage] = useState<string | null>(null);
-    const [shownAlerts, setShownAlerts] = useState<Set<number>>(new Set());
+    const [newsMessage, setNewsMessage] = useState<string | null>(null);
+
+    const stockSymbols = ["Tech Stock", "Industrial Stock", "Utility Stock"];
 
     const timelineMessages = [
-        { day: 20, message: "Housing market weakens as home prices start to fall." },
-        { day: 40, message: "Mortgage defaults rise, hitting banks with losses." },
-        { day: 60, message: "Lehman Brothers collapses, triggering panic." },
-        { day: 80, message: "Global markets plunge as fears of recession grow." },
-        { day: 100, message: "Government bailouts aim to stabilize the market." },
-        { day: 120, message: "Early signs of recovery as market stabilizes." }
+        { day: 20, message: "New tech innovation sparks a rally in Tech Stock prices." },
+        { day: 40, message: "Regulatory pressure builds on Tech Stocks, causing volatility." },
+        { day: 60, message: "Tech sector shows resilience; Tech Stocks recover from downturn." },
+        { day: 80, message: "Industrial Stocks gain due to infrastructure investments." },
+        { day: 100, message: "Utility Stocks remain stable amidst sector volatility." },
+        { day: 120, message: "Tech Stocks experience another surge as industry growth continues." }
     ];
 
-    const stockSymbols = ["Stock A", "Stock B", "Stock C"];
-
-    const getCurrentMessage = () => {
-        const phase = timelineMessages.find(event => day < event.day);
-        return phase ? phase.message : timelineMessages[timelineMessages.length - 1].message;
-    };
-
-    // Check for alert based on the current day
-    const checkForAlert = () => {
-        const alert = timelineMessages.find(event => event.day === day);
-        if (alert && !shownAlerts.has(alert.day)) {
-            setAlertMessage(alert.message);
-            setPaused(true); // Pause the day counter only
-            setShownAlerts(new Set(shownAlerts).add(alert.day)); // Track this alert as shown
+    // Fetch the appropriate news message based on the day
+    const getCurrentNews = () => {
+        const newsEvent = timelineMessages.find(event => event.day === day);
+        if (newsEvent) {
+            setNewsMessage(newsEvent.message);
         }
     };
 
-    // Increment day if simulation is not paused
+    // Increment the day count every second and check for news
     useEffect(() => {
-        if (!paused) {
-            const interval = setInterval(() => setDay((prevDay) => prevDay + 1), 1000);
-            return () => clearInterval(interval);
-        }
-    }, [paused]);
+        const interval = setInterval(() => setDay((prevDay) => prevDay + 1), 1000);
+        return () => clearInterval(interval);
+    }, []);
 
-    // Update stock prices, independent of paused state
     useEffect(() => {
         if (day > 0) {
-            setPrices((prevPrices) => prevPrices.map((priceSeries) => {
+            setPrices((prevPrices) => prevPrices.map((priceSeries, index) => {
                 const previousPrice = priceSeries[day - 1];
                 let newPrice;
 
-                if (day < 50) {
-                    newPrice = previousPrice * (1 - Math.random() * 0.02);
-                } else if (day < 150) {
-                    newPrice = previousPrice * (1 - Math.random() * 0.01);
-                } else if (day < 200) {
-                    newPrice = previousPrice * (1 + Math.random() * 0.005);
-                } else {
-                    newPrice = previousPrice * (1 + Math.random() * 0.01);
+                // Sector-specific volatility based on the timeline
+                if (index === 0) { // Tech Stock
+                    if (day < 40) {
+                        newPrice = previousPrice * (1 + Math.random() * 0.04); // Boom period
+                    } else if (day < 60) {
+                        newPrice = previousPrice * (1 - Math.random() * 0.05); // Regulatory pressure
+                    } else {
+                        newPrice = previousPrice * (1 + Math.random() * 0.03); // Recovery
+                    }
+                } else if (index === 1) { // Industrial Stock
+                    newPrice = previousPrice * (1 + Math.random() * 0.01); // Steady growth
+                } else { // Utility Stock
+                    newPrice = previousPrice * (1 + Math.random() * 0.005); // Stable
                 }
 
                 return [...priceSeries, newPrice];
             }));
-            checkForAlert(); // Check for alerts every time the day updates
+            getCurrentNews(); // Check for news updates based on the day
         }
-    }, [day]); // No dependency on paused state for price updates
+    }, [day]);
 
     const handleBuy = (index: number) => {
         const price = prices[index][day];
@@ -153,17 +146,12 @@ const FinancialCrisisScenario: React.FC = () => {
         }, 0)
     ).toFixed(2);
 
-    const handleCloseAlert = () => {
-        setAlertMessage(null); // Clear the alert message
-        setPaused(false); // Resume the day counter
-    };
-
     return (
         <div className="grid-container-outer">
             <div className="left-column">
                 <div className="nes-container with-title" style={{ height: '100%' }}>
-                    <h3 className='title'>2008 Financial Crisis Scenario</h3>
-                    <p><strong>Current Phase:</strong> {getCurrentMessage()}</p>
+                    <h3 className='title'>Tech Boom or Bust Scenario</h3>
+                    <p><strong>Current News:</strong> {newsMessage || "Simulation Running"}</p>
                     <p><strong>Cash:</strong> ${portfolio.cash.toFixed(2)}</p>
                     <p><strong>Total Portfolio Value:</strong> ${totalPortfolioValue}</p>
                     {prices.map((priceSeries, index) => {
@@ -189,25 +177,17 @@ const FinancialCrisisScenario: React.FC = () => {
                     })}
                 </div>
             </div>
-
             <div className="right-column">
                 <div className="nes-container with-title" style={{ height: '100%' }}>
                     <h3 className='title'>Scenario</h3>
+                    <p>Analyze the market trend based on sector news and decide if you want to increase exposure to tech stocks or diversify into other sectors for balance.</p>
                 </div>
                 <div className="nes-container with-title" style={{ height: '100%' }}>
                     <Portfolio />
                 </div>
             </div>
-
-            {/* Alert Popup */}
-            {alertMessage && (
-                <div className="nes-container is-rounded is-warning opaque-alert">
-                    <p><strong>Alert:</strong> {alertMessage}</p>
-                    <button className="nes-btn is-primary" onClick={handleCloseAlert}>Close Alert and Resume</button>
-                </div>
-            )}
         </div>
     );
 };
 
-export default FinancialCrisisScenario;
+export default TechBoomOrBustScenario;

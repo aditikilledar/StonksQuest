@@ -131,3 +131,16 @@
   text-align: center; /* Center text */
   height: 50%;
 }
+
+.opaque-alert {
+  background-color: yellow; /* Solid background color */
+  opacity: 1; /* Full opacity */
+  padding: 20px;
+  position: fixed;
+  top: 20%;
+  left: 30%;
+  width: 40%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Optional shadow for better visibility */
+  border-radius: 8px;
+  z-index: 1000; /* Ensure it appears above other elements */
+}
