@@ -31,7 +31,7 @@ interface Stock {
 }
 
 interface PortfolioI {
-    wallet:number;
+    wallet: number;
     cash: number;
     stocks: Stock[];
 }
@@ -46,7 +46,7 @@ const ScenarioOne: React.FC = () => {
     ]);
 
     const [portfolio, setPortfolio] = useState<PortfolioI>({
-        wallet:1000,
+        wallet: 1000,
         cash: 0,
         stocks: [{ shares: 0 }, { shares: 0 }, { shares: 0 }]
     });
@@ -69,19 +69,19 @@ const ScenarioOne: React.FC = () => {
     const hints = [
         // Days 0-20: Housing market weakens as home prices start to fall.
         { dayStart: 0, dayEnd: 20, hint: "Monitor the housing market closely. If prices fall, consider buying undervalued stocks, but be cautious of overall market trends." },
-    
+
         // Days 21-40: Mortgage defaults rise, hitting banks with losses.
         { dayStart: 21, dayEnd: 40, hint: "Mortgage defaults may lead to stock price drops. Hold off on buying bank stocks, and consider selling if you already own them." },
-    
+
         // Days 41-60: Lehman Brothers collapses, triggering panic.
         { dayStart: 41, dayEnd: 60, hint: "During market panic, consider buying stocks that are undervalued, but be ready to sell if prices continue to drop." },
-    
+
         // Days 61-80: Global markets plunge as fears of recession grow.
         { dayStart: 61, dayEnd: 80, hint: "Recession fears might mean it's time to sell weaker stocks to minimize losses. Hold onto strong stocks with solid fundamentals." },
-    
+
         // Days 81-100: Government bailouts aim to stabilize the market.
         { dayStart: 81, dayEnd: 100, hint: "Watch for stocks that may benefit from government bailouts. Consider buying these stocks, but sell any stocks that are not performing well." },
-    
+
         // Days 101-120: Early signs of recovery as market stabilizes.
         { dayStart: 101, dayEnd: 120, hint: "If the market shows signs of recovery, it may be a good time to buy strong-performing stocks. Hold onto your investments as the market stabilizes." }
     ];
@@ -91,23 +91,23 @@ const ScenarioOne: React.FC = () => {
     // const hints = [
     //     // Days 0-20: Housing market weakens as home prices start to fall.
     //     { dayStart: 0, dayEnd: 20, hint: "Monitor the housing market closely. If prices fall, consider buying undervalued stocks, but be cautious of overall market trends." },
-    
+
     //     // Days 21-40: Mortgage defaults rise, hitting banks with losses.
     //     { dayStart: 21, dayEnd: 40, hint: "Mortgage defaults may lead to stock price drops. Hold off on buying bank stocks, and consider selling if you already own them." },
-    
+
     //     // Days 41-60: Lehman Brothers collapses, triggering panic.
     //     { dayStart: 41, dayEnd: 60, hint: "During market panic, consider buying stocks that are undervalued, but be ready to sell if prices continue to drop." },
-    
+
     //     // Days 61-80: Global markets plunge as fears of recession grow.
     //     { dayStart: 61, dayEnd: 80, hint: "Recession fears might mean it's time to sell weaker stocks to minimize losses. Hold onto strong stocks with solid fundamentals." },
-    
+
     //     // Days 81-100: Government bailouts aim to stabilize the market.
     //     { dayStart: 81, dayEnd: 100, hint: "Watch for stocks that may benefit from government bailouts. Consider buying these stocks, but sell any stocks that are not performing well." },
-    
+
     //     // Days 101-120: Early signs of recovery as market stabilizes.
     //     { dayStart: 101, dayEnd: 120, hint: "If the market shows signs of recovery, it may be a good time to buy strong-performing stocks. Hold onto your investments as the market stabilizes." }
     // ];
-    
+
     // const hints = [
     //     { dayStart: 0, dayEnd: 20, hint: "Consider selling if you see a drop in housing prices." },
     //     { dayStart: 21, dayEnd: 40, hint: "Mortgage defaults may lead to stock price drops; be cautious." },
@@ -139,7 +139,7 @@ const ScenarioOne: React.FC = () => {
         // Reset state when the component mounts
         setDay(0);
         setPortfolio({
-            wallet:1000,
+            wallet: 1000,
             cash: 1000,
             stocks: [{ shares: 0 }, { shares: 0 }, { shares: 0 }] // reset stocks as needed
         });
@@ -212,8 +212,11 @@ const ScenarioOne: React.FC = () => {
 
     const handleCloseAlert = () => {
         setAlertMessage(null);
-        setPaused(false);
     };
+
+    const handleResume = () => {
+        setPaused(false);
+    }
 
     const openDialog = (index: number) => {
         setActiveDialog(index);
@@ -285,10 +288,10 @@ const ScenarioOne: React.FC = () => {
 
     const requestHint = () => {
         const dayHint = hints.find(hint => hint.dayStart <= day && day <= hint.dayEnd);
-    
+
         setCurrentHint(dayHint ? dayHint.hint : "Consider watching for opportunities.");
     };
-    
+
     const closeHint = () => {
         setCurrentHint(null);
     };
@@ -320,7 +323,7 @@ const ScenarioOne: React.FC = () => {
                 <div className="left-column">
                     <h1 className='title'>MiniGame: Market Crash Simulation</h1>
                     <div className="nes-container">
-
+                        <button className="nes-btn is-error" onClick={handleResume}>Resume!</button>
                         <center><h2>Day: {day + 1}</h2></center>
                         <div className="nes-container is-rounded is-dark">
                             {getCurrentMessage()}
@@ -356,53 +359,56 @@ const ScenarioOne: React.FC = () => {
                     </div>
                 </div>
 
-            <div className="right-column">
-                <h4 className='title'>Goal: Try to make a profit.</h4>
-                <h4 className='title'>Decide whether to buy, hold, or sell based on the market conditions.</h4>
-                <br></br>
-                <div className="nes-container" style={{ height: '40%' }}>
-                    <center><h3 className='title'>Portfolio</h3></center>
-                    <p><strong>Money Left in the Investment money:</strong> ${investmentMoneyLeft.toFixed(2)}</p>
-                    <p><strong>Value in Cash:</strong> ${(portfolio.cash).toFixed(2)}</p>
-                    <p><strong>Total Shares Value Worth:</strong> ${totalPortfolioValue}</p>
-                    <p><strong>Gains (Profit):</strong> ${profit.toFixed(2)} </p>
-                </div>
-                <br></br>
-                <div className="nes-container" style={{ height: '40%' }}>
-                    <center><h3>Buy/Sell</h3></center>
-                    {
-                        stockSymbols.map((item, index) => (
-                            <div key={index} className="stock-control">
-                                <p>{item} - Shares: {portfolio.stocks[index].shares}</p>
-                                <button onClick={() => handleBuy(index)} className="nes-btn is-success">
-                                    Buy
-                                </button>
-                                <button onClick={() => handleSell(index)} className={`nes-btn ${portfolio.stocks[index].shares === 0 ? 'is-disabled' : 'is-error'}`} disabled={portfolio.stocks[index].shares === 0}>
-                                    Sell
-                                </button>
-                            </div>
-                        ))
-                        // stockSymbols.map((item, index) => (
-                        //     <p key={index}>{item} </p>
-                        // ))
-                    }
-                </div>
+                <div className="right-column">
+                    <h4 className='title'>Goal: Try to make a profit.</h4>
+                    <h4 className='title'>Decide whether to buy, hold, or sell based on the market conditions.</h4>
+                    <br></br>
+                    <div className="nes-container" style={{ height: '40%' }}>
+                        <center><h3 className='title'>Portfolio</h3></center>
+                        <p><strong>Money Left in the Investment money:</strong> ${investmentMoneyLeft.toFixed(2)}</p>
+                        <p><strong>Value in Cash:</strong> ${(portfolio.cash).toFixed(2)}</p>
+                        <p><strong>Total Shares Value Worth:</strong> ${totalPortfolioValue}</p>
+                        <p><strong>Gains (Profit):</strong> ${profit.toFixed(2)} </p>
+                    </div>
+                    <br></br>
+                    <div className="nes-container" style={{ height: '40%' }}>
+                        <center><h3>Buy/Sell</h3></center>
+                        {
+                            stockSymbols.map((item, index) => (
+                                <div key={index} className="stock-control">
+                                    <p>{item} - Shares: {portfolio.stocks[index].shares}</p>
+                                    <button onClick={() => handleBuy(index)} className="nes-btn is-success">
+                                        Buy
+                                    </button>
+                                    <button onClick={() => handleSell(index)} className={`nes-btn ${portfolio.stocks[index].shares === 0 ? 'is-disabled' : 'is-error'}`} disabled={portfolio.stocks[index].shares === 0}>
+                                        Sell
+                                    </button>
+                                </div>
+                            ))
+                            // stockSymbols.map((item, index) => (
+                            //     <p key={index}>{item} </p>
+                            // ))
+
+                        }
+                        <button className="nes-btn is-primary" onClick={requestHint}>Request Hint</button>
+                    </div>
 
                 </div>
 
                 {alertMessage && (
                     <div className="nes-container is-rounded is-warning opaque-alert">
                         <p><strong>Alert:</strong> {alertMessage}<br></br><br></br> Tip: Use this paused time to buy, sell, or hold onto stocks.</p>
-                        <button className="nes-btn is-primary" onClick={handleCloseAlert}>I'm done. Resume! </button>
+                        <button className="nes-btn is-error" onClick={handleCloseAlert}>Close </button>
                     </div>
                 )}
                 {currentHint && (
-                <div className="nes-container is-rounded is-info opaque-alert">
-                    <p><strong>Hint:</strong> {currentHint}</p>
-                    <button className="nes-btn is-error" onClick={closeHint}>Close</button>
-                </div>
-            )}
+                    <div className="nes-container is-rounded is-info opaque-alert">
+                        <p><strong>Hint:</strong> {currentHint}</p>
+                        <button className="nes-btn is-error" onClick={closeHint}>Close</button>
+                    </div>
+                )}
             </div>
+
         </div >
 
     );

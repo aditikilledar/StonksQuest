@@ -7,7 +7,7 @@ const Header: React.FC = () => {
 
     return (
         <header className="header">
-            <button className="nes-btn is-primary" onClick={() => navigate("/")}> StonkQuest </button>
+            <button className="nes-btn is-primary" onClick={() => navigate("/StonkQuest")}> StonkQuest </button>
             <button className="nes-btn is-primary" onClick={() => navigate(-1)}>Back</button>
             {/* <h1 className="header-title">{title}</h1> */}
         </header>
