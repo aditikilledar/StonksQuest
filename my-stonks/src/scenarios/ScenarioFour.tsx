@@ -87,7 +87,7 @@ const ScenarioFour: React.FC = () => {
             description: "High Risk. Known for pioneering aerospace technology, but impacted by high R&D costs and unpredictable production cycles."
         }
     ];
-    
+
 
     const resetGame = () => {
         setDay(0);
@@ -233,10 +233,10 @@ const ScenarioFour: React.FC = () => {
     let totalPortfolioValue = portfolio.stocks.reduce((total, stock, index) => {
         const stockValue = stock.shares * (prices[index][day] || 0);
         return total + stockValue;
-    }, 0).toFixed(    2);
+    }, 0).toFixed(2);
 
     const totalStockValue = portfolio.stocks.reduce((total, stock, index) => {
-        const currentPrice = prices[index][day]; 
+        const currentPrice = prices[index][day];
         return total + (stock.shares * (currentPrice || 0));
     }, 0);
 

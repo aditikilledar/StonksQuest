@@ -244,7 +244,7 @@ const ScenarioTwo: React.FC = () => {
     const gains = (totalWalletValue - initialInvestment).toFixed(2);
 
     const investmentMoneyLeft = Math.max(portfolio.wallet, 0);
-    const profit = Math.max(Number(portfolio.cash) - (1000 - investmentMoneyLeft), 0);
+    const profit = Math.max(Number(portfolio.cash) - (1000 - investmentMoneyLeft), -9999);
 
     const isGameOver = day >= 60;
     const isProfitMade = Number(profit) > 0;
@@ -310,7 +310,7 @@ const ScenarioTwo: React.FC = () => {
                         <p><strong>Amount Spent from Bank:</strong> ${(1000 - investmentMoneyLeft).toFixed(2)}</p>
                         <p><strong>Value in Cash:</strong> ${portfolio.cash.toFixed(2)}</p>
                         <p><strong>Total Shares Value Worth:</strong> ${totalPortfolioValue}</p>
-                        <p><strong>Gains (Profit):</strong> ${profit.toFixed(2)} </p>
+                        <p><strong>Net Gain:</strong> ${profit.toFixed(2)} </p>
                         <p><strong>Profit Status:</strong> {isProfitMade ? 'Profit Made' : 'No Profit'}</p>
                     </div>
                     <br />
