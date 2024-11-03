@@ -3,6 +3,7 @@ import './App.css';
 import Home from './components/home';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ScenarioOne from './scenarios/ScenarioOne'; // Import the ScenarioOne component
+import FinancialCrisisScenario from './scenarios/FinancialCrisisScenario';
 
 const App: React.FC = () => {
   // const handleScenarioSelect = (scenario: string) => {
@@ -14,7 +15,7 @@ const App: React.FC = () => {
   //   console.log('Running test scenario...');
   //   // Add test scenario logic here
   // };
-  return(
+  return (
     <Router>
       <div>
         <Routes>
@@ -22,12 +23,13 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} /> 
           {/* The ScenarioOne component will be shown when navigating to /scenario-one */}
           <Route path="/scenario-one" element={<ScenarioOne />} />
+          {/* <Route path="/" */}
         </Routes>
       </div>
     </Router>
   );
-  
-  
+
+
 
   // return (
   //   <div>

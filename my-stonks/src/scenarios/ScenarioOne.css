@@ -82,3 +82,52 @@
 .section4 {
   background-color: #f44336;
 }
+
+/* CSS styles */
+.container-outer {
+  display: flex; /* Enable flexbox */
+  justify-content: space-between; /* Distribute space between items */
+  align-items: center; /* Center items vertically */
+  padding: 20px; /* Add some padding around the container */
+}
+
+.box {
+  flex: 1; /* Allow boxes to grow equally */
+  /* margin: 10px; Add margin around each box */
+  /* padding: 20px; Add padding inside the boxes */
+  /* border: 1px solid #ccc; Border */
+  text-align: center; /* Center text */
+}
+
+.box1 {
+  background-color: #4CAF50; /* Different background color for Box 1 */
+}
+
+.box2 {
+  background-color: #2196F3; /* Different background color for Box 2 */
+}
+
+.grid-container-outer {
+  display: grid; /* Enable grid layout */
+  grid-template-columns: 1fr 1fr; /* Set left column width and right column to fill the remaining space */
+  height: 100vh; /* Full height of the viewport */
+}
+
+.left-column {
+  display: flex; /* Enable flexbox for vertical stacking */
+  flex-direction: column; /* Stack boxes vertically */
+  justify-content: flex-start; /* Align boxes to the top */
+  padding: 20px; /* Padding inside the left column */
+  height: 100%;
+}
+
+.right-column {
+  background-color: #ffffff; /* Background color for the right column */
+  padding: 20px; /* Padding inside the right column */
+  height: 100%;
+}
+
+.box-inner {
+  text-align: center; /* Center text */
+  height: 50%;
+}
