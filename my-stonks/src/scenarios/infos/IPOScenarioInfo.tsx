@@ -1,7 +1,5 @@
 import 'nes.css/css/nes.min.css';
 import './Info.css';
-import Portfolio from '../../components/Portfolio';
-import BuyStock from '../../components/BuyStock';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
 
