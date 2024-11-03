@@ -31,6 +31,7 @@ interface Stock {
 }
 
 interface PortfolioI {
+    wallet:number;
     cash: number;
     stocks: Stock[];
 }
@@ -45,7 +46,8 @@ const ScenarioOne: React.FC = () => {
     ]);
 
     const [portfolio, setPortfolio] = useState<PortfolioI>({
-        cash: 1000,
+        wallet:1000,
+        cash: 0,
         stocks: [{ shares: 0 }, { shares: 0 }, { shares: 0 }]
     });
 
@@ -137,6 +139,7 @@ const ScenarioOne: React.FC = () => {
         // Reset state when the component mounts
         setDay(0);
         setPortfolio({
+            wallet:1000,
             cash: 1000,
             stocks: [{ shares: 0 }, { shares: 0 }, { shares: 0 }] // reset stocks as needed
         });
@@ -184,7 +187,7 @@ const ScenarioOne: React.FC = () => {
 
     // Update stock prices, independent of paused state
     useEffect(() => {
-        if (day > 0) {
+        if (day > 0 && day <= 80) {
             setPrices((prevPrices) => prevPrices.map((priceSeries) => {
                 const previousPrice = priceSeries[day - 1];
                 let newPrice;
@@ -222,10 +225,11 @@ const ScenarioOne: React.FC = () => {
 
     const handleBuy = (index: number) => {
         const price = prices[index][day];
-        if (portfolio.cash >= price) {
+        if (portfolio.cash + portfolio.wallet >= price) {
             setPortfolio((prevPortfolio) => ({
                 ...prevPortfolio,
-                cash: prevPortfolio.cash - price,
+                //cash: prevPortfolio.cash + prevPortfolio.wallet - price,
+                wallet: prevPortfolio.wallet - price,
                 stocks: prevPortfolio.stocks.map((stock, i) => i === index
                     ? { shares: stock.shares + 1 }
                     : stock
@@ -296,7 +300,9 @@ const ScenarioOne: React.FC = () => {
 
     var isGameOver: Boolean = day >= 200;
     var isProfitMade: Boolean = Number(totalPortfolioValue) > 1000;
-
+    //var MoneyUnused: Number = 1000 - Number(totalPortfolioValue);
+    var investmentMoneyLeft: Number = Math.max(portfolio.wallet, 0);
+    var profit: Number = Math.max(portfolio.cash - 1000 + Number(investmentMoneyLeft), 0);
     return (
         <div>
             <Header />
@@ -350,39 +356,37 @@ const ScenarioOne: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="right-column">
-                    <h4 className='title'>Goal: Try to make a profit.</h4>
-                    <h4 className='title'>Decide whether to buy, hold, or sell based on the market conditions.</h4>
-                    <br></br>
-                    <div className="nes-container" style={{ height: '40%' }}>
-                        <center><h3 className='title'>Portfolio</h3></center>
-                        <p><strong>Money Remaining:</strong> ${portfolio.cash.toFixed(2)}</p>
-                        <p><strong>Wallet:</strong> ${(1000 - portfolio.cash).toFixed(2)}</p>
-                        <p><strong>Total Value Worth:</strong> ${totalPortfolioValue}</p>
-                        <p><strong>Gains (Profit):</strong> ${totalPortfolioValue}</p>
-                        <p><strong>Profit Status:</strong> {isProfitMade ? 'Profit Made' : 'No Profit'}</p>
-                    </div>
-                    <br></br>
-                    <div className="nes-container" style={{ height: '40%' }}>
-                        <center><h3>Buy/Sell</h3></center>
-                        {
-                            stockSymbols.map((item, index) => (
-                                <div key={index} className="stock-control">
-                                    <p>{item} - Shares: {portfolio.stocks[index].shares}</p>
-                                    <button onClick={() => handleBuy(index)} className="nes-btn is-success">
-                                        Buy
-                                    </button>
-                                    <button onClick={() => handleSell(index)} className={`nes-btn ${portfolio.stocks[index].shares === 0 ? 'is-disabled' : 'is-error'}`} disabled={portfolio.stocks[index].shares === 0}>
-                                        Sell
-                                    </button>
-                                </div>
-                            ))
-                            // stockSymbols.map((item, index) => (
-                            //     <p key={index}>{item} </p>
-                            // ))
-                        }
-                        <button className="nes-btn is-primary" onClick={requestHint}>Request Hint</button>
-                    </div>
+            <div className="right-column">
+                <h4 className='title'>Goal: Try to make a profit.</h4>
+                <h4 className='title'>Decide whether to buy, hold, or sell based on the market conditions.</h4>
+                <br></br>
+                <div className="nes-container" style={{ height: '40%' }}>
+                    <center><h3 className='title'>Portfolio</h3></center>
+                    <p><strong>Money Left in the Investment money:</strong> ${investmentMoneyLeft.toFixed(2)}</p>
+                    <p><strong>Value in Cash:</strong> ${(portfolio.cash).toFixed(2)}</p>
+                    <p><strong>Total Shares Value Worth:</strong> ${totalPortfolioValue}</p>
+                    <p><strong>Gains (Profit):</strong> ${profit.toFixed(2)} </p>
+                </div>
+                <br></br>
+                <div className="nes-container" style={{ height: '40%' }}>
+                    <center><h3>Buy/Sell</h3></center>
+                    {
+                        stockSymbols.map((item, index) => (
+                            <div key={index} className="stock-control">
+                                <p>{item} - Shares: {portfolio.stocks[index].shares}</p>
+                                <button onClick={() => handleBuy(index)} className="nes-btn is-success">
+                                    Buy
+                                </button>
+                                <button onClick={() => handleSell(index)} className={`nes-btn ${portfolio.stocks[index].shares === 0 ? 'is-disabled' : 'is-error'}`} disabled={portfolio.stocks[index].shares === 0}>
+                                    Sell
+                                </button>
+                            </div>
+                        ))
+                        // stockSymbols.map((item, index) => (
+                        //     <p key={index}>{item} </p>
+                        // ))
+                    }
+                </div>
 
                 </div>
 
