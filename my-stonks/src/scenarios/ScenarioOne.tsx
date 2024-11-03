@@ -62,6 +62,31 @@ const ScenarioOne: React.FC = () => {
 
     const [buyCounts, setBuyCounts] = useState<number[]>(stockSymbols.map(() => 0));
     const [sellCounts, setSellCounts] = useState<number[]>(stockSymbols.map(() => 0));
+    const stockInfo = [
+        {
+            title: "Global BankCorp",
+            description: "Global BankCorp is a prominent international banking institution that stands out for its commitment to innovation in financial services and extensive reach across investment banking, wealth management, and commercial lending. With a strong global presence, BankCorp continually expands into emerging markets and prioritizes digital transformation, adapting to the needs of modern customers. BankCorp values financial inclusivity and provides a broad range of services aimed at supporting both individual and corporate clients worldwide, reflecting its mission to fuel economic growth and connect communities through financial empowerment."
+        },
+        {
+            title: "SafeHold Realty Trust",
+            description: "SafeHold Realty Trust is a premier real estate investment trust (REIT) specializing in top-tier commercial properties in major metropolitan areas. Known for its diverse portfolio of office spaces, shopping centers, and logistics facilities, SafeHold upholds a commitment to stability and reliability in property management. The company’s strategic focus on long-term leases with reputable tenants in high-demand urban locations underscores its dedication to maintaining secure, long-lasting assets."
+        },
+        {
+            title: "GreenEnergy Innovations Inc.",
+            description: "GreenEnergy Innovations is a pioneering renewable energy company focused on advancing clean power solutions, including solar, wind, and hydroelectric energy. Driven by a mission to combat climate change, GreenEnergy emphasizes sustainability and invests heavily in R&D to continuously improve energy efficiency and reduce costs. The company’s innovative projects and dedication to clean energy are helping pave the way for a more sustainable future, as it partners with global stakeholders to expand the accessibility of green power."
+        }
+    ];
+    const [activeDialog, setActiveDialog] = useState<number | null>(null);
+
+    // Handle opening and closing dialogs
+    const openDialog = (index: number) => {
+        setActiveDialog(index);
+    };
+
+    const closeDialog = () => {
+        setActiveDialog(null);
+    };
+
 
     const getCurrentMessage = () => {
         const phase = timelineMessages.find(event => day < event.day);
@@ -188,7 +213,24 @@ const ScenarioOne: React.FC = () => {
                                 <h3>{stockSymbols[index]} ${currentPrice}</h3>
 
                                 <Line data={createChartData(priceSeries)} />
+                                <button className="nes-btn is-primary" onClick={() => openDialog(index)}>
+                                View Info
+                                </button>
+
+                                {activeDialog === index && (
+                                    <dialog className="nes-dialog is-rounded dialog-container" open>
+                                        <form method="dialog">
+                                            <p className="title">{stockInfo[index].title}</p>
+                                            <p>{stockInfo[index].description}</p>
+                                            <menu className="dialog-menu">
+                                                <button className="nes-btn" onClick={closeDialog}>Close</button>
+                                            </menu>
+                                        </form>
+                                    </dialog>
+                                )}
+
                             </div>
+                            
                         );
                     })}
                 </div>

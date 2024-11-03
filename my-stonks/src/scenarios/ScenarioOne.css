@@ -147,6 +147,16 @@
   z-index: 1000; /* Ensure it appears above other elements */
 }
 
+.opaque-dialog-info {
+  background-color: yellow; /* or any solid color */
+  opacity: 1;
+  padding: 20px;
+}
+
+.dialog-container {
+  z-index: 2000; /* Ensures dialog is above buttons and other content */
+}
+
 .stock-control {
   display: flex;
   align-items: center;  /* Centers items vertically */
