@@ -61,6 +61,35 @@ const ScenarioOne: React.FC = () => {
 
     const stockSymbols = ["Stock A", "Stock B", "Stock C"];
 
+    const hints = [
+        // Days 0-20: Housing market weakens as home prices start to fall.
+        { dayStart: 0, dayEnd: 20, hint: "Monitor the housing market closely. If prices fall, consider buying undervalued stocks, but be cautious of overall market trends." },
+    
+        // Days 21-40: Mortgage defaults rise, hitting banks with losses.
+        { dayStart: 21, dayEnd: 40, hint: "Mortgage defaults may lead to stock price drops. Hold off on buying bank stocks, and consider selling if you already own them." },
+    
+        // Days 41-60: Lehman Brothers collapses, triggering panic.
+        { dayStart: 41, dayEnd: 60, hint: "During market panic, consider buying stocks that are undervalued, but be ready to sell if prices continue to drop." },
+    
+        // Days 61-80: Global markets plunge as fears of recession grow.
+        { dayStart: 61, dayEnd: 80, hint: "Recession fears might mean it's time to sell weaker stocks to minimize losses. Hold onto strong stocks with solid fundamentals." },
+    
+        // Days 81-100: Government bailouts aim to stabilize the market.
+        { dayStart: 81, dayEnd: 100, hint: "Watch for stocks that may benefit from government bailouts. Consider buying these stocks, but sell any stocks that are not performing well." },
+    
+        // Days 101-120: Early signs of recovery as market stabilizes.
+        { dayStart: 101, dayEnd: 120, hint: "If the market shows signs of recovery, it may be a good time to buy strong-performing stocks. Hold onto your investments as the market stabilizes." }
+    ];
+    
+    // const hints = [
+    //     { dayStart: 0, dayEnd: 20, hint: "Consider selling if you see a drop in housing prices." },
+    //     { dayStart: 21, dayEnd: 40, hint: "Mortgage defaults may lead to stock price drops; be cautious." },
+    //     { dayStart: 41, dayEnd: 60, hint: "Panic in the market could provide buying opportunities." },
+    //     { dayStart: 61, dayEnd: 80, hint: "Recession fears might mean it's time to sell." },
+    //     { dayStart: 81, dayEnd: 100, hint: "Government bailouts could stabilize some stocks; keep an eye on them." },
+    //     { dayStart: 101, dayEnd: 120, hint: "Market recovery means it might be a good time to invest." }
+    // ];
+
     const [buyCounts, setBuyCounts] = useState<number[]>(stockSymbols.map(() => 0));
     const [sellCounts, setSellCounts] = useState<number[]>(stockSymbols.map(() => 0));
     const stockInfo = [
@@ -78,6 +107,18 @@ const ScenarioOne: React.FC = () => {
         }
     ];
     const [activeDialog, setActiveDialog] = useState<number | null>(null);
+    const [currentHint, setCurrentHint] = useState<string | null>(null);
+
+    const checkForAlert = () => {
+        const alert = timelineMessages.find(event => event.day === day);
+
+        if (alert && !shownAlerts.has(alert.day)) {
+            setAlertMessage(alert.message);
+            setPaused(true);
+            setShownAlerts(new Set(shownAlerts).add(alert.day));
+    }
+};
+
 
     // Handle opening and closing dialogs
     const openDialog = (index: number) => {
@@ -94,15 +135,16 @@ const ScenarioOne: React.FC = () => {
         return phase ? phase.message : timelineMessages[timelineMessages.length - 1].message;
     };
 
+
     // Check for alert based on the current day
-    const checkForAlert = () => {
-        const alert = timelineMessages.find(event => event.day === day);
-        if (alert && !shownAlerts.has(alert.day)) {
-            setAlertMessage(alert.message);
-            setPaused(true); // Pause the day counter only
-            setShownAlerts(new Set(shownAlerts).add(alert.day)); // Track this alert as shown
-        }
-    };
+    // const checkForAlert = () => {
+    //     const alert = timelineMessages.find(event => event.day === day);
+    //     if (alert && !shownAlerts.has(alert.day)) {
+    //         setAlertMessage(alert.message);
+    //         setPaused(true); // Pause the day counter only
+    //         setShownAlerts(new Set(shownAlerts).add(alert.day)); // Track this alert as shown
+    //     }
+    // };
 
     // Increment day if simulation is not paused
     useEffect(() => {
@@ -193,6 +235,17 @@ const ScenarioOne: React.FC = () => {
         setPaused(false); // Resume the day counter
     };
 
+    const requestHint = () => {
+        const dayHint = hints.find(hint => hint.dayStart <= day && day <= hint.dayEnd);
+    
+        setCurrentHint(dayHint ? dayHint.hint : "Consider watching for opportunities.");
+    };
+    
+    const closeHint = () => {
+        setCurrentHint(null);
+    };
+    
+
     const isGameOver = day >= 300;
     const isProfitMade = Number(totalPortfolioValue) > 1000;
 
@@ -276,10 +329,11 @@ const ScenarioOne: React.FC = () => {
                                 </button>
                             </div>
                         ))
-                        // stockSymbols.map((item, index) => (
-                        //     <p key={index}>{item} </p>
-                        // ))
+
+                        
+
                     }
+                    <button className="nes-btn is-primary" onClick={requestHint}>Request Hint</button>
                 </div>
 
             </div>
@@ -288,6 +342,18 @@ const ScenarioOne: React.FC = () => {
                 <div className="nes-container is-rounded is-warning opaque-alert">
                     <p><strong>Alert:</strong> {alertMessage}<br></br><br></br> Tip: Use this paused time to buy, sell, or hold onto stocks.</p>
                     <button className="nes-btn is-primary" onClick={handleCloseAlert}>I'm done. Resume! </button>
+                </div>
+            )}
+
+            {/* {currentHint && (
+                <div className="nes-container is-rounded is-info opaque-alert">
+                    <p><strong>Hint:</strong> {currentHint}</p>
+                </div>
+            )} */}
+            {currentHint && (
+                <div className="nes-container is-rounded is-info opaque-alert">
+                    <p><strong>Hint:</strong> {currentHint}</p>
+                    <button className="nes-btn is-error" onClick={closeHint}>Close</button>
                 </div>
             )}
         </div>
