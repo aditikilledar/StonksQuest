@@ -143,17 +143,14 @@ const ScenarioOne: React.FC = () => {
     return (
         <div className="grid-container-outer">
             <div className="left-column">
-                <h1 className='title'>2008 Market Simulation</h1>
-                <div className="nes-container" style={{ height: '100%' }}>
+                <h1 className='title'>MiniGame: Market Crash Simulation</h1>
+                <div className="nes-container">
 
-                    <h4 className=''>Day: {day + 1}</h4>
+                    <center><h2>Day: {day + 1}</h2></center>
                     <div className="nes-container is-rounded is-dark">
                         {getCurrentMessage()}
                     </div>
                     <br></br>
-                    <p><strong>Cash:</strong> ${portfolio.cash.toFixed(2)}</p>
-                    <p><strong>Total Portfolio Value:</strong> ${totalPortfolioValue}</p>
-
                     {prices.map((priceSeries, index) => {
                         const currentPrice = priceSeries[day]?.toFixed(2) || "0.00";
                         const stockValue = (portfolio.stocks[index].shares * (priceSeries[day] || 0)).toFixed(2);
@@ -166,21 +163,41 @@ const ScenarioOne: React.FC = () => {
                         );
                     })}
                 </div>
-            </div>
+            </div >
             <div className="right-column">
+                <h4 className='title'>Goal: Try to make a profit.</h4>
+                <h4 className='title'>Decide whether to buy, hold, or sell based on the market conditions.</h4>
+                <br></br>
+                <div className="nes-container" style={{ height: '40%' }}>
+                    <center><h3 className='title'>Portfolio</h3></center>
+                    <p><strong>Money Remaining:</strong> ${portfolio.cash.toFixed(2)}</p>
+                    <p><strong>Value Invested:</strong> ${(1000 - portfolio.cash).toFixed(2)}</p>
+                    <p><strong>Total Value Worth:</strong> ${totalPortfolioValue}</p>
+                    <p><strong>Net Gain:</strong> {((${totalPortfolioValue} - (1000 - portfolio.cash)) / (1000 - portfolio.cash)) * 100).toFixed(2)}%</p>
+
+                </div>
+                <br></br>
+                <div className="nes-container" style={{ height: '40%' }}>
+                    <center><h3>Buy/Sell</h3></center>
+
+                </div>
+
+            </div>
+            {/* <div className="right-column">
                 <h3 className='title'>Goal: Try to make a profit.</h3>
                 <h3 className='title'>Decide whether to buy, hold, or sell based on the market conditions.</h3>
                 <div className="nes-container" style={{ height: '100%' }}>
                     <center><h3 className='title'>Portfolio</h3></center>
                 </div>
                 <div className="nes-container with-title" style={{ height: '100%' }}>
-                    <Portfolio />
+                    <p><strong>Cash:</strong> ${portfolio.cash.toFixed(2)}</p>
+                    <p><strong>Total Portfolio Value:</strong> ${totalPortfolioValue}</p>
                 </div>
                 <div className="nes-container with-title" style={{ height: '50%' }}>
                     <h3 className='title'>Buy/Sell</h3>
                 </div>
 
-            </div>
+            </div> */}
         </div >
     );
 };
