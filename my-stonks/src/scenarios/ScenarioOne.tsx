@@ -105,6 +105,8 @@ const ScenarioOne: React.FC = () => {
         }
     ];
 
+    const [isResumeEnabled, setIsResumeEnabled] = useState<boolean>(false);
+
     const resetGame = () => {
         console.log("HIIII")
         // Reset state when the component mounts
@@ -185,10 +187,12 @@ const ScenarioOne: React.FC = () => {
 
     const handleCloseAlert = () => {
         setAlertMessage(null);
+        setIsResumeEnabled(true)
     };
 
     const handleResume = () => {
         setPaused(false);
+        setIsResumeEnabled(false)
     }
 
     const openDialog = (index: number) => {
@@ -362,7 +366,7 @@ const ScenarioOne: React.FC = () => {
 
                 <div className="right-column">
                     <h4 className='title'>Goal: Try to make a profit, by buying/selling/holding stocks.</h4>
-                    {/* <h4 className='title'></h4> */} <button className="nes-btn is-error" onClick={handleResume}>Resume!</button>
+                    {/* <h4 className='title'></h4> */} <button className={`nes-btn ${!isResumeEnabled ? 'is-disabled' : 'is-error'}`} onClick={handleResume}>Resume!</button>
                     <br></br>
                     <div className="nes-container is-dark" style={{ height: '40%' }}>
                         <center><h3 className='title'>Investment Portfolio</h3></center>
