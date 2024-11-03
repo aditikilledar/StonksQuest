@@ -198,11 +198,12 @@ const TechBoomOrBustScenario: React.FC = () => {
                     <div className="game-over-overlay">
                         <h1>GAME OVER</h1>
                         <h2>{isProfitMade ? 'YOU WIN' : 'YOU LOSE'}</h2>
-                        <button className='nes-btn is-success' onClick={() => navigate('/scenario-techboom')}>Start Over</button>
-                        <button className='nes-btn is-warning' onClick={() => navigate('/')}>Back to Scenarios</button>
+                        <button className='nes-btn is-success' onClick={() => window.location.reload()}>Play Again</button>
+                        <button className='nes-btn is-normal' onClick={() => navigate('/scenario-one')}>Rules</button>
+                        <button className='nes-btn is-warning' onClick={() => navigate('/')}> Back to Scenarios</button>
+
                     </div>
                 )}
-
                 <div className="left-column">
                     <h1 className='title'>MiniGame: Tech Boom or Bust</h1>
                     <div className="nes-container">
@@ -247,7 +248,7 @@ const TechBoomOrBustScenario: React.FC = () => {
                         <p><strong>Total Value Worth:</strong> ${totalPortfolioValue}</p>
                     </div>
                     <br />
-                    <div className="nes-container" style={{ height:                    '40%' }}>
+                    <div className="nes-container" style={{ height: '40%' }}>
                         <center><h3>Buy/Sell</h3></center>
                         {
                             stockSymbols.map((item, index) => (

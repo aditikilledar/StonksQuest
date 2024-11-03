@@ -64,31 +64,31 @@ const IPOScenario: React.FC = () => {
 
     const hints = [
         // Days 0-10: Initial IPO Launch
-        { 
-            dayStart: 0, 
-            dayEnd: 10, 
-            hint: "The IPO market can be unpredictable. Start small if you’re interested in the IPO, and watch for initial price swings." 
+        {
+            dayStart: 0,
+            dayEnd: 10,
+            hint: "The IPO market can be unpredictable. Start small if you’re interested in the IPO, and watch for initial price swings."
         },
-    
+
         // Days 11-20: Increased Volatility
-        { 
-            dayStart: 11, 
-            dayEnd: 20, 
-            hint: "IPO prices often spike or drop sharply. Stay cautious and consider selling if the stock value rises quickly—profits may be short-lived." 
+        {
+            dayStart: 11,
+            dayEnd: 20,
+            hint: "IPO prices often spike or drop sharply. Stay cautious and consider selling if the stock value rises quickly—profits may be short-lived."
         },
-    
+
         // Days 21-40: Market Reaction and Potential Price Correction
-        { 
-            dayStart: 21, 
-            dayEnd: 40, 
-            hint: "As the market adjusts to the IPO, prices may stabilize or correct downward. Reassess your investment, especially if you’ve seen high volatility." 
+        {
+            dayStart: 21,
+            dayEnd: 40,
+            hint: "As the market adjusts to the IPO, prices may stabilize or correct downward. Reassess your investment, especially if you’ve seen high volatility."
         },
-    
+
         // Days 41-60: Evaluating the IPO’s Long-Term Potential
-        { 
-            dayStart: 41, 
-            dayEnd: 60, 
-            hint: "New companies can face challenges as the excitement wears off. Look for signs of stability before deciding to hold long-term." 
+        {
+            dayStart: 41,
+            dayEnd: 60,
+            hint: "New companies can face challenges as the excitement wears off. Look for signs of stability before deciding to hold long-term."
         }
     ];
 
@@ -363,7 +363,7 @@ const IPOScenario: React.FC = () => {
 
                 <div className="right-column">
                     <h4 className='title'>Goal: Try to make a profit, by buying/selling/holding stocks.</h4>
-                    {/* <h4 className='title'></h4> */} 
+                    {/* <h4 className='title'></h4> */}
                     <button className={`nes-btn ${!isResumeEnabled ? 'is-disabled' : 'is-error'}`} onClick={handleResume}>Resume!</button>
                     <br></br>
                     <div className="nes-container is-dark" style={{ height: '40%' }}>
