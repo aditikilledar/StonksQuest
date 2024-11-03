@@ -52,14 +52,15 @@ const ScenarioOne: React.FC = () => {
     const [paused, setPaused] = useState<boolean>(false);
     const [alertMessage, setAlertMessage] = useState<string | null>(null);
     const [shownAlerts, setShownAlerts] = useState<Set<number>>(new Set());
+    const [activeDialog, setActiveDialog] = useState<number | null>(null);
 
     const timelineMessages = [
-        { day: 20, message: "Housing market weakens as home prices start to fall." },
-        { day: 40, message: "Mortgage defaults rise, hitting banks with losses." },
-        { day: 60, message: "Lehman Brothers collapses, triggering panic." },
-        { day: 80, message: "Global markets plunge as fears of recession grow." },
-        { day: 100, message: "Government bailouts aim to stabilize the market." },
-        { day: 120, message: "Early signs of recovery as market stabilizes." }
+        { day: 10, message: "Housing market weakens as home prices start to fall." },
+        { day: 27, message: "Mortgage defaults rise, hitting banks with losses." },
+        { day: 35, message: "Lehman Brothers collapses, triggering panic." },
+        { day: 42, message: "Global markets plunge as fears of recession grow." },
+        { day: 50, message: "Government bailouts aim to stabilize the market." },
+        { day: 60, message: "Early signs of recovery as market stabilizes." }
     ];
 
     const stockSymbols = ["Stock A", "Stock B", "Stock C"];
@@ -69,27 +70,19 @@ const ScenarioOne: React.FC = () => {
     const stockInfo = [
         {
             title: "Global BankCorp",
-            description: "Global BankCorp is a prominent international banking institution that stands out for its commitment to innovation in financial services and extensive reach across investment banking, wealth management, and commercial lending. With a strong global presence, BankCorp continually expands into emerging markets and prioritizes digital transformation, adapting to the needs of modern customers. BankCorp values financial inclusivity and provides a broad range of services aimed at supporting both individual and corporate clients worldwide, reflecting its mission to fuel economic growth and connect communities through financial empowerment."
+            description: "Global BankCorp is a prominent international banking institution that stands out for its commitment to innovation..."
         },
         {
             title: "SafeHold Realty Trust",
-            description: "SafeHold Realty Trust is a premier real estate investment trust (REIT) specializing in top-tier commercial properties in major metropolitan areas. Known for its diverse portfolio of office spaces, shopping centers, and logistics facilities, SafeHold upholds a commitment to stability and reliability in property management. The company’s strategic focus on long-term leases with reputable tenants in high-demand urban locations underscores its dedication to maintaining secure, long-lasting assets."
+            description: "SafeHold Realty Trust is a premier real estate investment trust (REIT) specializing in top-tier commercial properties..."
         },
         {
             title: "GreenEnergy Innovations Inc.",
-            description: "GreenEnergy Innovations is a pioneering renewable energy company focused on advancing clean power solutions, including solar, wind, and hydroelectric energy. Driven by a mission to combat climate change, GreenEnergy emphasizes sustainability and invests heavily in R&D to continuously improve energy efficiency and reduce costs. The company’s innovative projects and dedication to clean energy are helping pave the way for a more sustainable future, as it partners with global stakeholders to expand the accessibility of green power."
+            description: "GreenEnergy Innovations is a pioneering renewable energy company focused on advancing clean power solutions..."
         }
     ];
-    const [activeDialog, setActiveDialog] = useState<number | null>(null);
 
-    // Handle opening and closing dialogs
-    const openDialog = (index: number) => {
-        setActiveDialog(index);
-    };
 
-    const closeDialog = () => {
-        setActiveDialog(null);
-    };
 
     const resetGame = () => {
         console.log("HIIII")
@@ -123,13 +116,12 @@ const ScenarioOne: React.FC = () => {
         return phase ? phase.message : timelineMessages[timelineMessages.length - 1].message;
     };
 
-    // Check for alert based on the current day
     const checkForAlert = () => {
-        const alert = timelineMessages.find(event => event.day === day);
+        const alert = timelineMessages.find(event => day < event.day);
         if (alert && !shownAlerts.has(alert.day)) {
             setAlertMessage(alert.message);
-            setPaused(true); // Pause the day counter only
-            setShownAlerts(new Set(shownAlerts).add(alert.day)); // Track this alert as shown
+            setPaused(true);
+            setShownAlerts(new Set(shownAlerts).add(alert.day));
         }
     };
 
@@ -147,22 +139,36 @@ const ScenarioOne: React.FC = () => {
             setPrices((prevPrices) => prevPrices.map((priceSeries) => {
                 const previousPrice = priceSeries[day - 1];
                 let newPrice;
-
-                if (day < 50) {
+                if (day < 10) {
                     newPrice = previousPrice * (1 - Math.random() * 0.02);
-                } else if (day < 150) {
+                } else if (day < 27) {
                     newPrice = previousPrice * (1 - Math.random() * 0.01);
-                } else if (day < 200) {
+                } else if (day < 35) {
                     newPrice = previousPrice * (1 + Math.random() * 0.005);
+                } else if (day < 42) {
+                    newPrice = previousPrice * (1 - Math.random() * 0.01);
+                } else if (day < 50) {
+                        newPrice = previousPrice * (1 + Math.random() * 0.01);
                 } else {
-                    newPrice = previousPrice * (1 + Math.random() * 0.01);
+                    newPrice = previousPrice * (1 + Math.random() * 0.1);
                 }
-
                 return [...priceSeries, newPrice];
             }));
-            checkForAlert(); // Check for alerts every time the day updates
+            checkForAlert();
         }
-    }, [day]); // No dependency on paused state for price updates
+    }, [day]);
+    const handleCloseAlert = () => {
+        setAlertMessage(null);
+        setPaused(false);
+    };
+
+    const openDialog = (index: number) => {
+        setActiveDialog(index);
+    };
+
+    const closeDialog = () => {
+        setActiveDialog(null);
+    };
 
     const handleBuy = (index: number) => {
         const price = prices[index][day];
@@ -217,10 +223,7 @@ const ScenarioOne: React.FC = () => {
         }, 0)
     ).toFixed(2);
 
-    const handleCloseAlert = () => {
-        setAlertMessage(null); // Clear the alert message
-        setPaused(false); // Resume the day counter
-    };
+ 
 
     var isGameOver: Boolean = day >= 300;
     var isProfitMade: Boolean = Number(totalPortfolioValue) > 1000;
@@ -261,24 +264,23 @@ const ScenarioOne: React.FC = () => {
                                     View Info
                                 </button>
 
-                                {activeDialog === index && (
-                                    <dialog className="nes-dialog is-rounded dialog-container" open>
-                                        <form method="dialog">
-                                            <p className="title">{stockInfo[index].title}</p>
-                                            <p>{stockInfo[index].description}</p>
-                                            <menu className="dialog-menu">
-                                                <button className="nes-btn" onClick={closeDialog}>Close</button>
-                                            </menu>
-                                        </form>
-                                    </dialog>
-                                )}
-
-                            </div>
-
+                            {activeDialog === index && (
+                                <dialog className="nes-dialog is-rounded opaque-dialog-info" open>
+                                    <form method="dialog">
+                                        <p className="title">{stockInfo[index].title}</p>
+                                        <p>{stockInfo[index].description}</p>
+                                        <menu className="dialog-menu">
+                                            <button className="nes-btn" onClick={closeDialog}>Close</button>
+                                        </menu>
+                                    </form>
+                                </dialog>
+                            )}
+                        </div>
                         );
                     })}
                 </div>
             </div>
+
             <div className="right-column">
                 <h4 className='title'>Goal: Try to make a profit.</h4>
                 <h4 className='title'>Decide whether to buy, hold, or sell based on the market conditions.</h4>
