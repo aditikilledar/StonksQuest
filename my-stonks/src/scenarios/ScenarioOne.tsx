@@ -204,7 +204,7 @@ const ScenarioOne: React.FC = () => {
                 } else if (day < 50) {
                     newPrice = previousPrice * (1 + Math.random() * 0.01);
                 } else {
-                    newPrice = previousPrice * (1 + Math.random() * 0.04);
+                    newPrice = previousPrice * (1 + Math.random() * 0.03);
                 }
                 return [...priceSeries, newPrice];
             }));

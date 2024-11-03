@@ -37,11 +37,11 @@ function ScenarioOneInfo() {
                         Game Rules:
 
                         <ul className='nes-list is-circle'>
-                            <li>Play the market, during a market crash.</li>
+                            <li>Play the market for <b>80 days</b>, during a market crash.</li>
                             <li>Your goal is to make a profit by making smart investment decisions.</li>
                             <li>Use the hint button to learn more and drive your decisions.</li>
                             <li>Remember: Buy when it's cheap, Sell when it's not.</li>
-                            <li>Money once invested from the bank cannot be used to invest again.</li>
+                            <li>Tip: There's a "Resume!" button to resume after an alert!</li>
                         </ul>
 
                     </div>
