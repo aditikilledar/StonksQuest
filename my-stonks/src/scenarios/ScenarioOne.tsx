@@ -220,4 +220,4 @@ const ScenarioOne: React.FC = () => {
     );
 };
 
-export default FinancialCrisisScenario;
+export default ScenarioOne;
