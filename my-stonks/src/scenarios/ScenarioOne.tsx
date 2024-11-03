@@ -140,7 +140,7 @@ const ScenarioOne: React.FC = () => {
         setDay(0);
         setPortfolio({
             wallet: 1000,
-            cash: 1000,
+            cash: 0,
             stocks: [{ shares: 0 }, { shares: 0 }, { shares: 0 }] // reset stocks as needed
         });
         isGameOver = false;
@@ -230,16 +230,32 @@ const ScenarioOne: React.FC = () => {
 
     const handleBuy = (index: number) => {
         const price = prices[index][day];
-        if (portfolio.cash + portfolio.wallet >= price) {
-            setPortfolio((prevPortfolio) => ({
+         // Check if there are enough funds in wallet + cash
+    if (portfolio.wallet + portfolio.cash >= price) {
+        setPortfolio((prevPortfolio) => {
+            let newWallet = prevPortfolio.wallet;
+            let newCash = prevPortfolio.cash;
+
+            // Deduct from wallet first, then cash if necessary
+            if (newWallet >= price) {
+                newWallet -= price; // Wallet has enough, so only deduct from wallet
+            } else {
+                const remainingAmount = price - newWallet; // Calculate the remainder needed
+                newWallet = 0; // Set wallet to zero
+                newCash -= remainingAmount; // Deduct the remaining amount from cash
+            }
+
+            const updatedStocks = prevPortfolio.stocks.map((stock, i) =>
+                i === index ? { shares: stock.shares + 1 } : stock
+            );
+
+            return {
                 ...prevPortfolio,
-                //cash: prevPortfolio.cash + prevPortfolio.wallet - price,
-                wallet: prevPortfolio.wallet - price,
-                stocks: prevPortfolio.stocks.map((stock, i) => i === index
-                    ? { shares: stock.shares + 1 }
-                    : stock
-                )
-            }));
+                wallet: newWallet,
+                cash: newCash,
+                stocks: updatedStocks,
+            };
+        });
             setBuyCounts((prevCounts) =>
                 prevCounts.map((count, i) => i === index ? count + 1 : count)
             );
@@ -312,7 +328,7 @@ const ScenarioOne: React.FC = () => {
 
     //var MoneyUnused: Number = 1000 - Number(totalPortfolioValue);
     var investmentMoneyLeft: Number = Math.max(portfolio.wallet, 0);
-    var profit: Number = Math.max(Number(portfolio.cash) + 1000 - Number(investmentMoneyLeft), 0);
+    var profit: Number = Math.max(Number(portfolio.cash) - (1000 - Number(investmentMoneyLeft)), 0);
 
     var isGameOver: Boolean = day >= 80;
     var isProfitMade: Boolean = Number(profit) > 0;
