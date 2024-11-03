@@ -120,7 +120,7 @@ const ScenarioOne: React.FC = () => {
                     : stock
                 )
             }));
-            setBuyCounts((prevCounts) => 
+            setBuyCounts((prevCounts) =>
                 prevCounts.map((count, i) => i === index ? count + 1 : count)
             );
         }
@@ -137,7 +137,7 @@ const ScenarioOne: React.FC = () => {
                     : stock
                 )
             }));
-            setSellCounts((prevCounts) => 
+            setSellCounts((prevCounts) =>
                 prevCounts.map((count, i) => i === index ? count + 1 : count)
             );
         }
@@ -156,7 +156,6 @@ const ScenarioOne: React.FC = () => {
     });
 
     let totalPortfolioValue = (
-        portfolio.cash +
         portfolio.stocks.reduce((total, stock, index) => {
             const stockValue = stock.shares * (prices[index][day] || 0);
             return total + stockValue;
