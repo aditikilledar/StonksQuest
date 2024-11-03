@@ -45,14 +45,17 @@ const ScenarioOne: React.FC = () => {
         cash: 1000,
         stocks: [{ shares: 0 }, { shares: 0 }, { shares: 0 }]
     });
-    
+    const [paused, setPaused] = useState<boolean>(false);
+    const [alertMessage, setAlertMessage] = useState<string | null>(null);
+    const [shownAlerts, setShownAlerts] = useState<Set<number>>(new Set());
+
     const timelineMessages = [
-        "Housing market weakens as home prices start to fall.",
-        "Mortgage defaults rise, hitting banks with losses.",
-        "Lehman Brothers collapses, triggering panic.",
-        "Global markets plunge as fears of recession grow.",
-        "Government bailouts aim to stabilize the market.",
-        "Early signs of recovery as market stabilizes."
+        { day: 20, message: "Housing market weakens as home prices start to fall." },
+        { day: 40, message: "Mortgage defaults rise, hitting banks with losses." },
+        { day: 60, message: "Lehman Brothers collapses, triggering panic." },
+        { day: 80, message: "Global markets plunge as fears of recession grow." },
+        { day: 100, message: "Government bailouts aim to stabilize the market." },
+        { day: 120, message: "Early signs of recovery as market stabilizes." }
     ];
 
     const stockSymbols = ["Stock A", "Stock B", "Stock C"];
@@ -61,19 +64,29 @@ const ScenarioOne: React.FC = () => {
     const [sellCounts, setSellCounts] = useState<number[]>(stockSymbols.map(() => 0));
 
     const getCurrentMessage = () => {
-        if (day < 50) return timelineMessages[0];
-        if (day < 100) return timelineMessages[1];
-        if (day < 150) return timelineMessages[2];
-        if (day < 200) return timelineMessages[3];
-        if (day < 250) return timelineMessages[4];
-        return timelineMessages[5];
+        const phase = timelineMessages.find(event => day < event.day);
+        return phase ? phase.message : timelineMessages[timelineMessages.length - 1].message;
     };
 
-    useEffect(() => {
-        const interval = setInterval(() => setDay((prevDay) => prevDay + 1), 1000);
-        return () => clearInterval(interval);
-    }, []);
+    // Check for alert based on the current day
+    const checkForAlert = () => {
+        const alert = timelineMessages.find(event => event.day === day);
+        if (alert && !shownAlerts.has(alert.day)) {
+            setAlertMessage(alert.message);
+            setPaused(true); // Pause the day counter only
+            setShownAlerts(new Set(shownAlerts).add(alert.day)); // Track this alert as shown
+        }
+    };
 
+    // Increment day if simulation is not paused
+    useEffect(() => {
+        if (!paused) {
+            const interval = setInterval(() => setDay((prevDay) => prevDay + 1), 1000);
+            return () => clearInterval(interval);
+        }
+    }, [paused]);
+
+    // Update stock prices, independent of paused state
     useEffect(() => {
         if (day > 0) {
             setPrices((prevPrices) => prevPrices.map((priceSeries) => {
@@ -92,8 +105,9 @@ const ScenarioOne: React.FC = () => {
 
                 return [...priceSeries, newPrice];
             }));
+            checkForAlert(); // Check for alerts every time the day updates
         }
-    }, [day]);
+    }, [day]); // No dependency on paused state for price updates
 
     const handleBuy = (index: number) => {
         const price = prices[index][day];
@@ -141,13 +155,23 @@ const ScenarioOne: React.FC = () => {
         ],
     });
 
-    const totalPortfolioValue = (
+    let totalPortfolioValue = (
         portfolio.cash +
         portfolio.stocks.reduce((total, stock, index) => {
             const stockValue = stock.shares * (prices[index][day] || 0);
             return total + stockValue;
         }, 0)
     ).toFixed(2);
+
+    const handleCloseAlert = () => {
+        setAlertMessage(null); // Clear the alert message
+        setPaused(false); // Resume the day counter
+    };
+
+    const getNetGain = (
+        ((totalPortfolioValue - (1000 - portfolio.cash)) / (1000 - portfolio.cash)) * 100
+    ).toFixed(2);
+
 
     return (
         <div className="grid-container-outer">
@@ -172,7 +196,7 @@ const ScenarioOne: React.FC = () => {
                         );
                     })}
                 </div>
-            </div >
+            </div>
             <div className="right-column">
                 <h4 className='title'>Goal: Try to make a profit.</h4>
                 <h4 className='title'>Decide whether to buy, hold, or sell based on the market conditions.</h4>
@@ -183,6 +207,8 @@ const ScenarioOne: React.FC = () => {
                     <p><strong>Value Invested:</strong> ${(1000 - portfolio.cash).toFixed(2)}</p>
                     <p><strong>Total Value Worth:</strong> ${totalPortfolioValue}</p>
                     {/* <p><strong>Net Gain:</strong> ((${totalPortfolioValue} - (1000 - portfolio.cash)) / (1000 - portfolio.cash)) * 100).toFixed(2)%</p> */}
+                    <p><strong>Net Gain:</strong> {getNetGain()}%</p>
+
 
                 </div>
                 <br></br>
@@ -237,53 +263,15 @@ const ScenarioOne: React.FC = () => {
                     }
                 </div>
 
-            </div> */}
-        </div >
+            {/* Alert Popup */}
+            {alertMessage && (
+                <div className="nes-container is-rounded is-warning opaque-alert">
+                    <p><strong>Alert:</strong> {alertMessage}</p>
+                    <button className="nes-btn is-primary" onClick={handleCloseAlert}>Close Alert and Resume</button>
+                </div>
+            )}
+        </div>
     );
 };
 
 export default ScenarioOne;
-
-
-// function ScenarioOne() {
-//     return (
-//         <div className="grid-container-outer">
-//             <div className="left-column">
-//                 <div className="nes-container with-title " style={{'height':'100%'}}>
-//                      <h3 className='title'>Scenario</h3>
-//                  </div>
-//             </div>
-//             <div className="right-column">
-//                 <div className="box-inner">
-//                     <div className="nes-container with-title" style={{'height':'100%'}}>
-//                         <h3 className='title'>Scenario</h3>
-//                     </div>
-//                 </div>
-//                 <div className="box-inner" >
-//                     <div className="nes-container with-title" style={{'height':'100%'}}>
-//                          <Portfolio />
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-
-// <div className='container-outer'>
-//     <div className="box">
-//         <div className="nes-container with-title">
-//             <h3 className='title'>Scenario</h3>
-//         </div>
-//     </div>
-//     <div className="box">
-//         <div className="nes-container with-title">
-//             <h3 className='title'>Stock View</h3>
-//         </div>
-//         <div className="nes-container with-title">
-//             <Portfolio />
-//         </div>
-//     </div>
-// </div>
-
-//     );
-// }
-
-// export default ScenarioOne;
