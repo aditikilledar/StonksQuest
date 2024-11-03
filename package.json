@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "phaser": "^3.86.0"
-  },
-  "devDependencies": {
-    "gh-pages": "^6.2.0"
-  }
-}

@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/StonkQuest/static/css/main.52a87de3.css",
-    "main.js": "/StonkQuest/static/js/main.2ac6e254.js",
+    "main.css": "/StonkQuest/static/css/main.9cd3bc50.css",
+    "main.js": "/StonkQuest/static/js/main.0e8a0a06.js",
     "static/js/453.814fc8e5.chunk.js": "/StonkQuest/static/js/453.814fc8e5.chunk.js",
     "index.html": "/StonkQuest/index.html",
-    "main.52a87de3.css.map": "/StonkQuest/static/css/main.52a87de3.css.map",
-    "main.2ac6e254.js.map": "/StonkQuest/static/js/main.2ac6e254.js.map",
+    "main.9cd3bc50.css.map": "/StonkQuest/static/css/main.9cd3bc50.css.map",
+    "main.0e8a0a06.js.map": "/StonkQuest/static/js/main.0e8a0a06.js.map",
     "453.814fc8e5.chunk.js.map": "/StonkQuest/static/js/453.814fc8e5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.52a87de3.css",
-    "static/js/main.2ac6e254.js"
+    "static/css/main.9cd3bc50.css",
+    "static/js/main.0e8a0a06.js"
   ]
 }
