@@ -120,24 +120,50 @@ const TechBoomOrBustScenario: React.FC = () => {
         }
     }, [paused]);
 
+    // useEffect(() => {
+    //     if (day > 0) {
+    //         setPrices((prevPrices) => prevPrices.map((priceSeries, index) => {
+    //             const previousPrice = priceSeries[day - 1];
+    //             let newPrice;
+    //             if (day < 30) {
+    //                 newPrice = previousPrice * (1 + Math.random() * 0.03 - 0.015);
+    //             } else if (day < 60) {
+    //                 newPrice = previousPrice * (1 + Math.random() * 0.02 - 0.01);
+    //             } else {
+    //                 newPrice = previousPrice * (1 + Math.random() * 0.05 - 0.025);
+    //             }
+    //             return [...priceSeries, newPrice];
+    //         }));
+    //         checkForAlert();
+    //     }
+    // }, [day]);
+
     useEffect(() => {
         if (day > 0) {
             setPrices((prevPrices) => prevPrices.map((priceSeries, index) => {
                 const previousPrice = priceSeries[day - 1];
                 let newPrice;
-                if (day < 30) {
-                    newPrice = previousPrice * (1 + Math.random() * 0.03 - 0.015);
-                } else if (day < 60) {
-                    newPrice = previousPrice * (1 + Math.random() * 0.02 - 0.01);
+    
+                if (day <= 30) {
+                    // Strong upward trend due to AI advancements
+                    newPrice = previousPrice * (1 + Math.random() * 0.05 + 0.03); // Growth of 3% to 8%
+                } else if (day > 30 && day <= 60) {
+                    // Slower growth or slight decline due to compliance costs
+                    newPrice = previousPrice * (1 + Math.random() * 0.02 - 0.015); // Growth/decline between -1.5% and +2%
+                } else if (day > 60 && day <= 100) {
+                    // Volatility due to mixed earnings, some stocks rise, others fall
+                    const volatilityFactor = Math.random() < 0.5 ? 1 : -1; // Randomly choose up or down trend
+                    newPrice = previousPrice * (1 + volatilityFactor * Math.random() * 0.1); // Fluctuate up to ±10%
                 } else {
-                    newPrice = previousPrice * (1 + Math.random() * 0.05 - 0.025);
+                    // Post-earnings season with a return to normal fluctuations
+                    newPrice = previousPrice * (1 + Math.random() * 0.03 - 0.015); // Fluctuate between -1.5% and +3%
                 }
+    
                 return [...priceSeries, newPrice];
             }));
             checkForAlert();
         }
     }, [day]);
-
     const handleCloseAlert = () => {
         setAlertMessage(null);
         setPaused(false);
