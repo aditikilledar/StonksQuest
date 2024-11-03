@@ -60,7 +60,7 @@ const ScenarioOne: React.FC = () => {
     const timelineMessages = [
         { day: 10, message: "Housing market weakens as home prices start to fall." },
         { day: 27, message: "Mortgage defaults rise, hitting banks with losses." },
-        { day: 35, message: "Lehman Brothers collapses, triggering panic." },
+        { day: 35, message: "A major company, Lehman Brothers, collapses, triggering panic." },
         { day: 42, message: "Global markets plunge as fears of recession grow." },
         { day: 50, message: "Government bailouts aim to stabilize the market." },
         { day: 60, message: "Early signs of recovery as market stabilizes." }
@@ -87,35 +87,6 @@ const ScenarioOne: React.FC = () => {
     ];
 
     const stockSymbols = ["Stock A", "Stock B", "Stock C"];
-
-    // const hints = [
-    //     // Days 0-20: Housing market weakens as home prices start to fall.
-    //     { dayStart: 0, dayEnd: 20, hint: "Monitor the housing market closely. If prices fall, consider buying undervalued stocks, but be cautious of overall market trends." },
-
-    //     // Days 21-40: Mortgage defaults rise, hitting banks with losses.
-    //     { dayStart: 21, dayEnd: 40, hint: "Mortgage defaults may lead to stock price drops. Hold off on buying bank stocks, and consider selling if you already own them." },
-
-    //     // Days 41-60: Lehman Brothers collapses, triggering panic.
-    //     { dayStart: 41, dayEnd: 60, hint: "During market panic, consider buying stocks that are undervalued, but be ready to sell if prices continue to drop." },
-
-    //     // Days 61-80: Global markets plunge as fears of recession grow.
-    //     { dayStart: 61, dayEnd: 80, hint: "Recession fears might mean it's time to sell weaker stocks to minimize losses. Hold onto strong stocks with solid fundamentals." },
-
-    //     // Days 81-100: Government bailouts aim to stabilize the market.
-    //     { dayStart: 81, dayEnd: 100, hint: "Watch for stocks that may benefit from government bailouts. Consider buying these stocks, but sell any stocks that are not performing well." },
-
-    //     // Days 101-120: Early signs of recovery as market stabilizes.
-    //     { dayStart: 101, dayEnd: 120, hint: "If the market shows signs of recovery, it may be a good time to buy strong-performing stocks. Hold onto your investments as the market stabilizes." }
-    // ];
-
-    // const hints = [
-    //     { dayStart: 0, dayEnd: 20, hint: "Consider selling if you see a drop in housing prices." },
-    //     { dayStart: 21, dayEnd: 40, hint: "Mortgage defaults may lead to stock price drops; be cautious." },
-    //     { dayStart: 41, dayEnd: 60, hint: "Panic in the market could provide buying opportunities." },
-    //     { dayStart: 61, dayEnd: 80, hint: "Recession fears might mean it's time to sell." },
-    //     { dayStart: 81, dayEnd: 100, hint: "Government bailouts could stabilize some stocks; keep an eye on them." },
-    //     { dayStart: 101, dayEnd: 120, hint: "Market recovery means it might be a good time to invest." }
-    // ];
 
     const [buyCounts, setBuyCounts] = useState<number[]>(stockSymbols.map(() => 0));
     const [sellCounts, setSellCounts] = useState<number[]>(stockSymbols.map(() => 0));
@@ -230,32 +201,32 @@ const ScenarioOne: React.FC = () => {
 
     const handleBuy = (index: number) => {
         const price = prices[index][day];
-         // Check if there are enough funds in wallet + cash
-    if (portfolio.wallet + portfolio.cash >= price) {
-        setPortfolio((prevPortfolio) => {
-            let newWallet = prevPortfolio.wallet;
-            let newCash = prevPortfolio.cash;
+        // Check if there are enough funds in wallet + cash
+        if (portfolio.wallet + portfolio.cash >= price) {
+            setPortfolio((prevPortfolio) => {
+                let newWallet = prevPortfolio.wallet;
+                let newCash = prevPortfolio.cash;
 
-            // Deduct from wallet first, then cash if necessary
-            if (newWallet >= price) {
-                newWallet -= price; // Wallet has enough, so only deduct from wallet
-            } else {
-                const remainingAmount = price - newWallet; // Calculate the remainder needed
-                newWallet = 0; // Set wallet to zero
-                newCash -= remainingAmount; // Deduct the remaining amount from cash
-            }
+                // Deduct from wallet first, then cash if necessary
+                if (newWallet >= price) {
+                    newWallet -= price; // Wallet has enough, so only deduct from wallet
+                } else {
+                    const remainingAmount = price - newWallet; // Calculate the remainder needed
+                    newWallet = 0; // Set wallet to zero
+                    newCash -= remainingAmount; // Deduct the remaining amount from cash
+                }
 
-            const updatedStocks = prevPortfolio.stocks.map((stock, i) =>
-                i === index ? { shares: stock.shares + 1 } : stock
-            );
+                const updatedStocks = prevPortfolio.stocks.map((stock, i) =>
+                    i === index ? { shares: stock.shares + 1 } : stock
+                );
 
-            return {
-                ...prevPortfolio,
-                wallet: newWallet,
-                cash: newCash,
-                stocks: updatedStocks,
-            };
-        });
+                return {
+                    ...prevPortfolio,
+                    wallet: newWallet,
+                    cash: newCash,
+                    stocks: updatedStocks,
+                };
+            });
             setBuyCounts((prevCounts) =>
                 prevCounts.map((count, i) => i === index ? count + 1 : count)
             );
@@ -263,7 +234,7 @@ const ScenarioOne: React.FC = () => {
     };
 
     const handleSell = (index: number) => {
-        const price = prices[index][day];
+        const price = prices[index][day] || 0;
         const sharesToSell = 1; // Define how many shares to sell in each click
 
         // Check if there are enough shares to sell
@@ -320,10 +291,10 @@ const ScenarioOne: React.FC = () => {
         setCurrentHint(null);
     };
 
-    const initialInvestment = 1000
-    const totalWalletValue = portfolio.cash + totalStockValue; // Total value of portfolio
-    const valueInvested = (initialInvestment - portfolio.cash).toFixed(2); // Calculate value invested
-    const gains = (Number(totalWalletValue) - initialInvestment).toFixed(2);
+    // const initialInvestment = 1000
+    // const totalWalletValue = portfolio.cash + totalStockValue; // Total value of portfolio
+    // const valueInvested = (initialInvestment - portfolio.cash).toFixed(2); // Calculate value invested
+    // const gains = (Number(totalWalletValue) - initialInvestment).toFixed(2);
 
 
     //var MoneyUnused: Number = 1000 - Number(totalPortfolioValue);
@@ -342,8 +313,10 @@ const ScenarioOne: React.FC = () => {
                     <div className="game-over-overlay">
                         <h1>GAME OVER</h1>
                         <h2>{isProfitMade ? 'YOU WIN' : 'YOU LOSE'}</h2>
-                        <button className='nes-btn is-success' onClick={() => navigate('/scenario-one')}>Start Over</button>
+                        <button className='nes-btn is-success' onClick={() => window.location.reload()}>Play Again</button>
+                        <button className='nes-btn is-normal' onClick={() => navigate('/scenario-one')}>Rules</button>
                         <button className='nes-btn is-warning' onClick={() => navigate('/')}> Back to Scenarios</button>
+
                     </div>
                 )}
 
