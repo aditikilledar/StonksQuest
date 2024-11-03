@@ -14,6 +14,7 @@ import {
     Tooltip,
     Legend
 } from 'chart.js';
+import { useNavigate } from 'react-router-dom';
 
 ChartJS.register(
     CategoryScale,
@@ -35,6 +36,7 @@ interface PortfolioI {
 }
 
 const ScenarioOne: React.FC = () => {
+    const navigate = useNavigate();
     const [day, setDay] = useState<number>(0);
     const [prices, setPrices] = useState<number[][]>([
         [100],
@@ -46,6 +48,7 @@ const ScenarioOne: React.FC = () => {
         cash: 1000,
         stocks: [{ shares: 0 }, { shares: 0 }, { shares: 0 }]
     });
+
     const [paused, setPaused] = useState<boolean>(false);
     const [alertMessage, setAlertMessage] = useState<string | null>(null);
     const [shownAlerts, setShownAlerts] = useState<Set<number>>(new Set());
@@ -87,6 +90,32 @@ const ScenarioOne: React.FC = () => {
     const closeDialog = () => {
         setActiveDialog(null);
     };
+
+    const resetGame = () => {
+        console.log("HIIII")
+        // Reset state when the component mounts
+        setDay(0);
+        setPortfolio({
+            cash: 1000,
+            stocks: [{ shares: 0 }, { shares: 0 }, { shares: 0 }] // reset stocks as needed
+        });
+        isGameOver = false;
+        isProfitMade = false;
+    };
+
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === 'hidden') {
+                resetGame();
+            }
+        };
+
+        window.addEventListener('visibilitychange', handleVisibilityChange);
+
+        return () => {
+            window.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
+    }, []);
 
 
     const getCurrentMessage = () => {
@@ -193,9 +222,8 @@ const ScenarioOne: React.FC = () => {
         setPaused(false); // Resume the day counter
     };
 
-    const isGameOver = day >= 300;
-    const isProfitMade = Number(totalPortfolioValue) > 1000;
-
+    var isGameOver: Boolean = day >= 300;
+    var isProfitMade: Boolean = Number(totalPortfolioValue) > 1000;
 
     return (
         <div>
@@ -206,6 +234,8 @@ const ScenarioOne: React.FC = () => {
                 <div className="game-over-overlay">
                     <h1>GAME OVER</h1>
                     <h2>{isProfitMade ? 'YOU WIN' : 'YOU LOSE'}</h2>
+                    <button className='nes-btn is-success' onClick={() => navigate('/scenario-one')}>Start Over</button>
+                    <button className='nes-btn is-warning'>Back to Scenarios</button>
                 </div>
             )}
 
@@ -228,7 +258,7 @@ const ScenarioOne: React.FC = () => {
 
                                 <Line data={createChartData(priceSeries)} />
                                 <button className="nes-btn is-primary" onClick={() => openDialog(index)}>
-                                View Info
+                                    View Info
                                 </button>
 
                                 {activeDialog === index && (
@@ -244,7 +274,7 @@ const ScenarioOne: React.FC = () => {
                                 )}
 
                             </div>
-                            
+
                         );
                     })}
                 </div>
@@ -258,8 +288,6 @@ const ScenarioOne: React.FC = () => {
                     <p><strong>Money Remaining:</strong> ${portfolio.cash.toFixed(2)}</p>
                     <p><strong>Value Invested:</strong> ${(1000 - portfolio.cash).toFixed(2)}</p>
                     <p><strong>Total Value Worth:</strong> ${totalPortfolioValue}</p>
-
-
                 </div>
                 <br></br>
                 <div className="nes-container" style={{ height: '40%' }}>
@@ -297,3 +325,7 @@ const ScenarioOne: React.FC = () => {
 };
 
 export default ScenarioOne;
+function useRef(arg0: null) {
+    throw new Error('Function not implemented.');
+}
+
