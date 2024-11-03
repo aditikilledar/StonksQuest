@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'nes.css/css/nes.min.css';
 import './ScenarioOne.css';
-import Portfolio from '../components/Portfolio';
 import { Line } from 'react-chartjs-2';
 import Header from '../components/Header';
 import {
