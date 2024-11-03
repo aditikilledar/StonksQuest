@@ -162,16 +162,6 @@ const ScenarioOne: React.FC = () => {
                             <div key={index} className="chart-container">
                                 <h3>{stockSymbols[index]}</h3>
                                 <Line data={createChartData(priceSeries)} />
-                                {/* <p>Day: {day + 1}</p> */}
-                                {/* <p>Price: ${currentPrice}</p> */}
-                                {/* <p>Shares Held: {portfolio.stocks[index].shares}</p> */}
-                                {/* <p>Value of Shares: ${stockValue}</p> */}
-                                {/* <button onClick={() => handleBuy(index)} disabled={portfolio.cash < (priceSeries[day] || 0)}>
-                                    Buy
-                                </button>
-                                <button onClick={() => handleSell(index)} disabled={portfolio.stocks[index].shares <= 0}>
-                                    Sell
-                                </button>
                             </div>
                         );
                     })}
@@ -186,9 +176,57 @@ const ScenarioOne: React.FC = () => {
                 <div className="nes-container with-title" style={{ height: '100%' }}>
                     <Portfolio />
                 </div>
+                <div className="nes-container with-title" style={{ height: '50%' }}>
+                    <h3 className='title'>Buy/Sell</h3>
+                </div>
+
             </div>
-        </div>
+        </div >
     );
 };
 
 export default ScenarioOne;
+
+
+// function ScenarioOne() {
+//     return (
+//         <div className="grid-container-outer">
+//             <div className="left-column">
+//                 <div className="nes-container with-title " style={{'height':'100%'}}>
+//                      <h3 className='title'>Scenario</h3>
+//                  </div>
+//             </div>
+//             <div className="right-column">
+//                 <div className="box-inner">
+//                     <div className="nes-container with-title" style={{'height':'100%'}}>
+//                         <h3 className='title'>Scenario</h3>
+//                     </div>
+//                 </div>
+//                 <div className="box-inner" >
+//                     <div className="nes-container with-title" style={{'height':'100%'}}>
+//                          <Portfolio />
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+
+// <div className='container-outer'>
+//     <div className="box">
+//         <div className="nes-container with-title">
+//             <h3 className='title'>Scenario</h3>
+//         </div>
+//     </div>
+//     <div className="box">
+//         <div className="nes-container with-title">
+//             <h3 className='title'>Stock View</h3>
+//         </div>
+//         <div className="nes-container with-title">
+//             <Portfolio />
+//         </div>
+//     </div>
+// </div>
+
+//     );
+// }
+
+// export default ScenarioOne;
