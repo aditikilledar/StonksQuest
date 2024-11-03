@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'nes.css/css/nes.min.css';
 import './ScenarioTwo.css';
-import Portfolio from '../components/Portfolio';
 import { Line } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -183,7 +182,6 @@ const TechBoomOrBustScenario: React.FC = () => {
                     <p>Analyze the market trend based on sector news and decide if you want to increase exposure to tech stocks or diversify into other sectors for balance.</p>
                 </div>
                 <div className="nes-container with-title" style={{ height: '100%' }}>
-                    <Portfolio />
                 </div>
             </div>
         </div>
