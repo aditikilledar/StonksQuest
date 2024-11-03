@@ -135,7 +135,7 @@
 }
 
 .opaque-alert {
-  background-color: yellow; /* Solid background color */
+  background-color: rgb(235, 235, 198); /* Solid background color */
   opacity: 1; /* Full opacity */
   padding: 20px;
   position: fixed;
