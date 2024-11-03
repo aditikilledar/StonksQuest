@@ -50,7 +50,7 @@ Maximize portfolio value through strategic trading based on market signals and t
 
 ## 🛠️ Technologies Used
 
-- **React: For building a responsive, interactive frontend.
-- **TypeScript: Ensures robust, type-safe code for reliability and maintainability.
+- **React**: For building a responsive, interactive frontend.
+- **TypeScript**: Ensures robust, type-safe code for reliability and maintainability.
 
 Start trading now and see if you can master the market! 📊
