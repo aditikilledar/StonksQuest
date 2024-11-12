@@ -1,6 +1,8 @@
 # StonkQuest: All the trading thrills. None of the Bills. 
+Hackathon project
 https://devpost.com/software/stonkquest
 
+Built in 24 hours on November 2nd-3rd, 2024 in HackNC 2024.
 
 Learn to trade by adapting to real-life scenarios without losing your life savings.
 
