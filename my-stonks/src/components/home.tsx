@@ -24,7 +24,11 @@ const Home: React.FC = () => {
 
       </div>
       <br></br>
+      <br></br>
       <button className="game-button test-button" onClick={() => navigate('/test')}>Test Your Skills</button>
+
+      <div className='footer'><center>© 2024 Created by: Aditi Killedar, Sravya Yepuri, Soubhagya Akkena, Jahnavi Panchavati
+        <br></br>Find us on <a href='https://www.linkedin.com/in/aditikilledar'>LinkedIn!</a> </center></div>
 
     </div>
   );

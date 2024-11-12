@@ -256,7 +256,7 @@ const TechBoomOrBustScenario: React.FC = () => {
                     <h2>{isProfitMade ? 'YOU WIN' : 'YOU LOSE'}</h2>
                     <button className='nes-btn is-success' onClick={() => window.location.reload()}>Play Again</button>
                     <button className='nes-btn is-normal' onClick={() => navigate('/scenario-one')}>Rules</button>
-                    <button className='nes-btn is-warning' onClick={() => navigate('/Stonkquest')}> Back to Scenarios</button>
+                    <button className='nes-btn is-warning' onClick={() => navigate('/')}> Back to Scenarios</button>
 
                 </div>
             )}
@@ -293,6 +293,7 @@ const TechBoomOrBustScenario: React.FC = () => {
             <div className="right-column">
 
                 <div className="nes-container with-title" style={{ height: '100%' }}>
+                    <center><h2>Day: {day + 1}</h2></center>
                     <h3 className='title'>Scenario</h3>
                     <p>Analyze the market trend based on sector news and decide if you want to increase exposure to tech stocks or diversify into other sectors for balance.</p>
                 </div>

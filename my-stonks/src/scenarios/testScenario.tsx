@@ -143,7 +143,7 @@ const TechBoomOrBustScenario: React.FC = () => {
             setPrices((prevPrices) => prevPrices.map((priceSeries, index) => {
                 const previousPrice = priceSeries[day - 1];
                 let newPrice;
-    
+
                 if (day <= 30) {
                     // Strong upward trend due to AI advancements
                     newPrice = previousPrice * (1 + Math.random() * 0.05 + 0.03); // Growth of 3% to 8%
@@ -158,7 +158,7 @@ const TechBoomOrBustScenario: React.FC = () => {
                     // Post-earnings season with a return to normal fluctuations
                     newPrice = previousPrice * (1 + Math.random() * 0.03 - 0.015); // Fluctuate between -1.5% and +3%
                 }
-    
+
                 return [...priceSeries, newPrice];
             }));
             checkForAlert();
@@ -266,7 +266,7 @@ const TechBoomOrBustScenario: React.FC = () => {
 
                 <div className="right-column">
                     <h4 className='title'>Goal: Maximize profit through smart tech investments.</h4>
-                    <br />
+                    <br /> <center><h2>Day: {day + 1}</h2></center>
                     <div className="nes-container" style={{ height: '40%' }}>
                         <center><h3 className='title'>Portfolio</h3></center>
                         <p><strong>Money Remaining:</strong> ${portfolio.cash.toFixed(2)}</p>

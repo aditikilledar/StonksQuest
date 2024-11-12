@@ -5,6 +5,21 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.footer {
+  background-color: #36393f;
+  text-align: center;
+  padding: 20px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 14px;
+  color: #201d1d;
+}
+
 
 .app-container {
   display: flex;
@@ -147,38 +162,56 @@ body {
 
 /* StockSimulatorGame.css */
 .game-button {
-  background-color: #4caf50; /* Green background for stock theme */
-  color: white; /* Text color */
-  border: none; /* No border */
-  border-radius: 5px; /* Rounded corners */
-  padding: 15px 30px; /* Padding for top/bottom and left/right */
-  font-size: 1.5rem; /* Font size */
-  cursor: pointer; /* Pointer cursor on hover */
-  text-transform: uppercase; /* Uppercase text */
-  letter-spacing: 1px; /* Space between letters */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow for depth */
-  transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
+  background-color: #4caf50;
+  /* Green background for stock theme */
+  color: white;
+  /* Text color */
+  border: none;
+  /* No border */
+  border-radius: 5px;
+  /* Rounded corners */
+  padding: 15px 30px;
+  /* Padding for top/bottom and left/right */
+  font-size: 1.5rem;
+  /* Font size */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+  text-transform: uppercase;
+  /* Uppercase text */
+  letter-spacing: 1px;
+  /* Space between letters */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  /* Shadow for depth */
+  transition: background-color 0.3s, transform 0.2s;
+  /* Smooth transition */
   font-family: 'Press Start 2P', cursive;
 
 }
 
 .game-button:hover {
-  background-color: #45a049; /* Darker green on hover */
-  transform: translateY(-2px); /* Lift effect on hover */
+  background-color: #45a049;
+  /* Darker green on hover */
+  transform: translateY(-2px);
+  /* Lift effect on hover */
 }
 
 .game-button:active {
-  transform: translateY(1px); /* Press effect on click */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Reduced shadow on click */
+  transform: translateY(1px);
+  /* Press effect on click */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  /* Reduced shadow on click */
 }
 
 .test-button {
-  background-color: #ffcc00; /* Yellow background for test button */
-  font-weight: bold; /* Bold text for emphasis */
+  background-color: #ffcc00;
+  /* Yellow background for test button */
+  font-weight: bold;
+  /* Bold text for emphasis */
 }
 
 .test-button:hover {
-  background-color: #e6b800; /* Darker yellow on hover */
+  background-color: #e6b800;
+  /* Darker yellow on hover */
 }
 
 .header {
@@ -196,5 +229,6 @@ body {
 
 .centered-button {
   display: grid;
-  place-items: center; /* Center both horizontally and vertically */
+  place-items: center;
+  /* Center both horizontally and vertically */
 }

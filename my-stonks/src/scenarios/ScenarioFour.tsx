@@ -264,7 +264,7 @@ const ScenarioFour: React.FC = () => {
                         <h2>{isProfitMade ? 'YOU WIN' : 'YOU LOSE'}</h2>
                         <button className='nes-btn is-success' onClick={() => window.location.reload()}>Play Again</button>
                         <button className='nes-btn is-normal' onClick={() => navigate('/scenario-four')}>Rules</button>
-                        <button className='nes-btn is-warning' onClick={() => navigate('/Stonkquest')}>Back to Scenarios</button>
+                        <button className='nes-btn is-warning' onClick={() => navigate('/')}>Back to Scenarios</button>
                     </div>
                 )}
 
@@ -308,7 +308,7 @@ const ScenarioFour: React.FC = () => {
                 <div className="right-column">
                     <h4 className='title'>Goal: Try to make a profit by buying/selling/holding stocks based on earnings reports.</h4>
                     <button className={`nes-btn ${!isResumeEnabled ? 'is-disabled' : 'is-error'}`} onClick={handleResume}>Resume!</button>
-                    <br />
+                    <br /> <center><h2>Day: {day + 1}</h2></center>
                     <div className="nes-container is-dark" style={{ height: '40%' }}>
                         <center><h3 className='title'>Investment Portfolio</h3></center>
                         <br />

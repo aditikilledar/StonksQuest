@@ -1,1 +1,3 @@
 my-stonks/node-modules/*
+# Local Netlify folder
+.netlify
