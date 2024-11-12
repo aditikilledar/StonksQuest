@@ -1,4 +1,6 @@
-# StonkQuest
+# StonkQuest: All the trading thrills. None of the Bills. 
+https://devpost.com/software/stonkquest
+
 
 Learn to trade by adapting to real-life scenarios without losing your life savings.
 
